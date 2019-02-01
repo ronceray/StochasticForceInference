@@ -1,6 +1,5 @@
------------------------------------------------------------------------
 # StochasticForceInference	
------------------------------------------------------------------------
+
 
 StochasticForceInference is a package aimed at reconstructing
 spatially variable force, diffusion and current fields and computing
