@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------
-             |||   StochasticForceInference    |||	
+# StochasticForceInference	
 -----------------------------------------------------------------------
 
 StochasticForceInference is a package aimed at reconstructing
