@@ -50,11 +50,11 @@ class DiffusionInference(object):
             # correction term and integrating in Ito, i.e. evaluating
             # the projector at the initial point of the interval.
             dXp = self.data.dX[1:]
-            dX0 = self.data.dX[:-1]
+            dXm = self.data.dX[:-1]
+            dX0 = dXp + dXm
             D_local = [ (   np.einsum('im,in->imn',dX0[t],dX0[t])
-                         +  np.einsum('im,in->imn',dXp[t],dXp[t])
-                        + 2*np.einsum('im,in->imn',dXp[t],dX0[t])
-                        + 2*np.einsum('im,in->imn',dX0[t],dXp[t]))
+                        +   np.einsum('im,in->imn',dXp[t],dXm[t])
+                        +   np.einsum('im,in->imn',dXm[t],dXp[t]))
                         /(4*dt) for t,dt in enumerate(self.data.dt[1:])   ]
             # There is one point fewer than for usual integration. We
             # integrate in a symmetric way with respect to the

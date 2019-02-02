@@ -67,7 +67,7 @@ def comparison_scatter(Xexact,Xinferred,vmax=None,color='cornflowerblue',alpha=0
     plt.axis('equal')
     plt.xlabel('exact')
     plt.ylabel('inferred')
-    plt.title(r"$r="+str(round(r,2 if r<0.98 else 3))+"$",loc='left',y=y,x=0.05,fontsize=10)
+    plt.title(r"$r="+str(round(r,2 if r<0.98 else 3 if r<0.999 else 4  if r<0.9999  else 5))+"$",loc='left',y=y,x=0.05,fontsize=10)
     plt.xticks([0.])
     plt.yticks([0.])
     plt.xlim(-vmax,vmax)
