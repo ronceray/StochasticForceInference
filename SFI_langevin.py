@@ -58,11 +58,15 @@ class OverdampedLangevinProcess(object):
             self.divD = lambda X : np.zeros((self.Nparticles,self.d))
         else:
             self.D = D
-            def sqrt2D(X):
-                D = self.D(X)
-                return np.array([ sqrtm(2 * D[i,:,:]) for i in range(self.Nparticles) ])
+            if self.d >= 2:
+                def sqrt2D(X):
+                    D = self.D(X)
+                    return np.array([ sqrtm(2 * D[i,:,:]) for i in range(self.Nparticles) ])
+            else:
+                def sqrt2D(X):
+                    return (2*self.D(X))**0.5
             self.sqrt2D = sqrt2D
-            
+                
             if divD is None:
                 epsilon = 1e-6
                 self.__dx__ = [[ np.array([[ 0 if (i,m)!= (ind,mu) else epsilon for m in range(self.d)] for i in range(self.Nparticles) ] )\

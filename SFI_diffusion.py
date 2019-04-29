@@ -60,12 +60,28 @@ class DiffusionInference(object):
             # integrate in a symmetric way with respect to the
             # estimator, i.e. over X[1:-1].
             integration_style = 'StratonovichOnPoint'
+        elif diffusion_method == 'WeakNoise':
+            ddX = self.data.dX[1:] - self.data.dX[:-1]
+            D_local = [ np.einsum('im,in->imn',ddX[t],ddX[t])/(4*dt) for t,dt in enumerate(self.data.dt[1:])   ]
+            # There is one point fewer than for usual integration. We
+            # integrate in a symmetric way with respect to the
+            # estimator, i.e. over X[1:-1].
+            integration_style = 'StratonovichOnPoint'
+        elif diffusion_method == 'WCS':
+            ddXp = 0.5 * (self.data.dX[2:] - self.data.dX[1:-1])
+            ddXm = 0.5 * (self.data.dX[1:-1] - self.data.dX[:-2])
+            D_local = [ ( np.einsum('im,in->imn',ddXp[t]+ddXm[t],ddXp[t]+ddXm[t] ) +
+                          np.einsum('im,in->imn',ddXp[t],ddXm[t] ) *(4/(5*dt))) for t,dt in enumerate(self.data.dt[1:-1])   ]
+            # There is one point fewer than for usual integration. We
+            # integrate in a symmetric way with respect to the
+            # estimator, i.e. over X[1:-1].
+            integration_style = 'StratonovichTruncated'
         else:
             raise KeyError("Wrong diffusion_method argument.")
         # Reshape into vectors as inner product allows for only one
         # non-particle index:
         D_local_reshaped = [ np.array([ flatten_symmetric(Di,self.data.d) for Di in D]) for D in D_local ]
-        D_projections_reshaped = self.data.inner_product_empirical(D_local_reshaped, self.projectors.c, integration_style = integration_style) 
+        D_projections_reshaped = np.einsum('ma,ab->mb',self.data.inner_product_empirical(D_local_reshaped, self.projectors.b, integration_style = integration_style), self.projectors.H ) 
         # Back to matrix form:
         self.D_projections = np.array([ inflate_symmetric(Di,self.data.d) for Di in D_projections_reshaped.T]).T 
         self.D_ansatz,self.D_coefficients = self.projectors.projector_combination(self.D_projections) 
@@ -77,7 +93,7 @@ class DiffusionInference(object):
             return np.einsum('mna,jmia->in', self.D_coefficients, self.projectors.grad_b(x) )
         self.divD_ansatz = divD
         
-        self.bootstrapped_Dproj_error = np.prod(self.D_projections.shape) / sum(self.data.Nparticles)
+        self.bootstrapped_Dproj_error = np.prod(self.D_projections.shape) / ( 1.* sum(self.data.Nparticles))
         self.safety_checks()
         if verbose:
             self.print_report()
@@ -101,8 +117,8 @@ class DiffusionInference(object):
         self.ansatz_divD = [ self.divD_ansatz(X) for X in data_exact.X_ito ]
 
         # Evaluate the precision as < ||(De-Di)/(De+Di)||^2 >
-        self.D_precision = np.array([ np.linalg.norm( np.einsum('imn,ino->imo', np.linalg.inv(D + self.ansatz_D[t]), D - self.ansatz_D[t]))**2 for t,D in enumerate(self.exact_D) ]).mean()
-        self.divD_precision = np.array([ np.linalg.norm(d-self.ansatz_divD[t])**2/(np.linalg.norm(d)**2 + np.linalg.norm(self.ansatz_divD[t])**2)  for t,d in enumerate(self.exact_divD) ]).mean()
+        self.D_precision = np.array([ np.linalg.norm( np.einsum('imn,ino->imo', np.linalg.inv(D + self.ansatz_D[t]), D - self.ansatz_D[t]))**2 for t,D in enumerate(self.exact_D) ]).mean() 
+        self.divD_precision = np.array([ np.linalg.norm(d-self.ansatz_divD[t])**2/(np.linalg.norm(d)**2 + np.linalg.norm(self.ansatz_divD[t])**2+1e-50)  for t,d in enumerate(self.exact_divD) ]).mean()
         
         D_local_reshaped = [ np.array([ flatten_symmetric(De,self.data.d) for De in D_exact(X)]) for X in data_exact.X_ito ]
         D_projections_reshaped = self.data.inner_product_empirical( D_local_reshaped, self.projectors.c, integration_style = 'Ito' ) 
@@ -112,7 +128,9 @@ class DiffusionInference(object):
         if verbose:
             print("Error on inferred D along trajectory:",self.D_precision)
             print("Error on inferred D projection; bootstrapped error:",self.D_projections_error,self.bootstrapped_Dproj_error)
-            print("Error on div D:",self.divD_precision)
+            if self.divD_precision > 0:
+                # Don't print it for constant D.
+                print("Error on div D:",self.divD_precision)
 
 
     def print_report(self):
@@ -139,7 +157,7 @@ class DiffusionInference(object):
         if self.emin < 0:
             print("Warning, the inferred diffusion matrix has negative eigenvalues along the trajectory!")
             
-    def regularized_D_ansatz(self, cutoff_low, cutoff_high = np.inf ):
+    def regularized_D_ansatz(self, cutoff_low, cutoff_high = np.inf, power = 1 ):
         """Returns a D(X) function such that all eigenvalues (of the matrix
         normalized by the average diffusion matrix) are truncated to
         fall within the [low,high] cutoff interval. """
@@ -151,7 +169,7 @@ class DiffusionInference(object):
             D_out_norm = []
             for Di in D_in_norm:
                 evals,evecs = np.linalg.eigh(Di)
-                evals_truncated = np.array([ max( min( cutoff_high, v ), cutoff_low ) for v in evals ])
+                evals_truncated = np.array([ max( min( cutoff_high, v ), cutoff_low ) for v in evals ])**power
                 D_out_norm.append(np.einsum('mn,n,on->mo',evecs,evals_truncated,evecs))
             D_out = np.einsum('mn,ino,op->imp', D_average_sqrt, np.array(D_out_norm), D_average_sqrt )
             return D_out

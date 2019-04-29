@@ -51,12 +51,18 @@ class StochasticForceInference(object):
     - a,b... for tensorial indices of the projection basis (alpha,beta... in text);
     - i,j... for particle indices (i,j.. in text).
 
+    The "compute_phi" argument calculates the Ito-based projection of
+    Xdot. It can be useful when using a non-differentiable basis for
+    which the Stratonovich-based average does not work (eg for grid
+    coarse-graining) but is otherwise not necessary to the method.
+
     """ 
     
-    def __init__(self,data,diffusion_data,basis,verbose=True):
+    def __init__(self,data,diffusion_data,basis,verbose=True, compute_phi = False):
         self.data = data
         self.basis = basis
         self.diffusion_data = diffusion_data
+        self.compute_phi = compute_phi
 
         # Parse the diffusion input: two possibilities -
         #  - either a matrix (constant - no dependency on space or
@@ -107,22 +113,23 @@ class StochasticForceInference(object):
         # The velocity projection coefficients (onto the projectors,
         # ie the self.projectors.c functions) are given by
         # Stratonovich integration of x_dot(t) c_n(x(t)).
-        self.v_projections   = self.data.inner_product_empirical( self.data.Xdot, self.projectors.c, integration_style = 'Stratonovich' )
+        self.v_projections = np.einsum('ma,ab->mb',self.data.inner_product_empirical( self.data.Xdot, self.projectors.b, integration_style = 'Stratonovich' ), self.projectors.H )
+        
         # The ansatz reconstructs the velocity field as
         #     v_ansatz_mu(x) = sum_a v_projections_mu_a c_a(x)
         # For convenience we also store the v_coefficients of v onto
         # the initial functions, b.
         self.v_ansatz,self.v_coefficients = self.projectors.projector_combination(self.v_projections)
 
-        # The Ito average of xdot. Note that it biased by measurement noise.
-        # phi_mu(x) = < xdot_mu | x >_ito = F_mu(x) + divD_mu(x)
-        self.phi_projections = self.data.inner_product_empirical( self.data.Xdot, self.projectors.c, integration_style = 'Ito' )
-        self.phi_ansatz,self.phi_coefficients = self.projectors.projector_combination(self.phi_projections)
+        if self.compute_phi:
+            # The Ito average of xdot. Note that it biased by measurement noise.
+            # phi_mu(x) = < xdot_mu | x >_ito = F_mu(x) + divD_mu(x)
+            self.phi_projections = np.einsum('ma,ab->mb',self.data.inner_product_empirical( self.data.Xdot, self.projectors.b, integration_style = 'Ito' ), self.projectors.H )
+            self.phi_ansatz,self.phi_coefficients = self.projectors.projector_combination(self.phi_projections) 
 
         if self.diffusion_data["type"] == "constant":
             # The projection coefficients of g = grad log P:
-            self.grad_c      = np.array([ np.einsum('imia->ma',self.projectors.grad_c(x)) for x in self.data.X_strat ])
-            self.g_projections = - np.einsum('t,tma->ma', self.data.dt, self.grad_c) / self.data.tauN 
+            self.g_projections = - np.einsum('ma,ab->mb',self.data.trajectory_integral(lambda t : np.einsum('imia->ma',self.projectors.grad_b(self.data.X_strat[t]))), self.projectors.H )
             self.w_projections = np.einsum('mn,na->ma',self.D,self.g_projections) 
 
         elif self.diffusion_data["type"] == "function":
@@ -135,8 +142,7 @@ class StochasticForceInference(object):
                 Nparticles,dim = x.shape
                 dx = [[ np.array([[ 0 if (i,m)!= (ind,mu) else epsilon for m in range(dim)] for i in range(Nparticles) ])   for mu in range(dim)] for ind in range(Nparticles) ] 
                 return np.einsum('inimna->ma',np.array([[ (D_c(x+dx[ind][mu]) - D_c(x-dx[ind][mu]))/(2*epsilon) for mu in range(dim)] for ind in range(Nparticles) ] ))
-            grad_D_c_vals    =  np.array([ grad_D_c(x) for x in self.data.X_strat ]) 
-            self.w_projections = - np.einsum('t,tma->ma', self.data.dt, grad_D_c_vals) / self.data.tauN 
+            self.w_projections = - self.data.trajectory_integral(lambda t : grad_D_c(self.data.X_strat[t]))
 
         elif self.diffusion_data["type"] == "DiffusionInference":
             # Compute the projection of w = D grad log P using an
@@ -147,9 +153,10 @@ class StochasticForceInference(object):
                 # the SFI instance (self) and the DiffusionInference,
                 # traced over particles.
                 return np.einsum('imia,ib->mab',self.DI.projectors.grad_b(X),self.projectors.b(X))+\
-                       np.einsum('ia,imib->mab',self.DI.projectors.b(X),self.projectors.grad_b(X)) 
-            self.grad_D_c =  np.array([ grad_bD_bF(x) for x in self.data.X_strat ]) 
-            self.w_projections = - np.einsum('t,tmab,mna,bc->nc', self.data.dt, self.grad_D_c, self.DI.D_coefficients,self.projectors.H, optimize=True)/self.data.tauN
+                       np.einsum('ia,imib->mab',self.DI.projectors.b(X),self.projectors.grad_b(X))
+
+            int_grad_bD_bF = self.data.trajectory_integral(lambda t : grad_bD_bF(self.data.X_strat[t]))
+            self.w_projections = - np.einsum('mab,mna,bc->nc', int_grad_bD_bF, self.DI.D_coefficients,self.projectors.H, optimize=True)
               
         self.w_ansatz,self.w_coefficients = self.projectors.projector_combination(self.w_projections)
         
@@ -177,9 +184,11 @@ class StochasticForceInference(object):
             Dinv_Ito       = [ self.Dinv(X) for X in self.data.X_ito ] 
             ansatz_F_Ito   = [ self.F_ansatz(X) for X in self.data.X_ito ]
             ansatz_v_Ito   = [ self.v_ansatz(X) for X in self.data.X_ito ]
-            self.Information = 0.25 * np.einsum('t,t->', self.data.dt, np.array([ np.einsum('imn,im,in->',Dinv_Ito[t],ansatz_F_Ito[t],ansatz_F_Ito[t]) for t in range(len(self.data.Xdot))]))
-            self.DeltaS = np.einsum('t,t->', self.data.dt, np.array([ np.einsum('imn,im,in->',Dinv_Ito[t],ansatz_v_Ito[t],ansatz_v_Ito[t]) for t in range(len(self.data.Xdot))]))
-            self.Heat = np.einsum('t,t->', self.data.dt, np.array([ np.einsum('imn,im,in->',self.Dinv(self.data.X_strat[t]),self.F_ansatz(self.data.X_strat[t]),self.data.Xdot[t]) for t in range(len(self.data.Xdot))])) 
+
+            self.Information = 0.25 * self.data.trajectory_integral(lambda t : np.einsum('imn,im,in->',Dinv_Ito[t],ansatz_F_Ito[t],ansatz_F_Ito[t]) ) * self.data.tauN
+            self.DeltaS =  self.data.trajectory_integral(lambda t : np.einsum('imn,im,in->',Dinv_Ito[t],ansatz_v_Ito[t],ansatz_v_Ito[t]) ) * self.data.tauN
+            self.Heat =  self.data.trajectory_integral(lambda t : np.einsum('imn,im,in->',self.Dinv(self.data.X_strat[t]),self.F_ansatz(self.data.X_strat[t]),self.data.Xdot[t])) * self.data.tauN
+            
 
         # Per-particle rates:
         self.Sdot     = self.DeltaS / self.data.tauN
@@ -216,7 +225,8 @@ class StochasticForceInference(object):
         self.exact_F_Ito = [ F_exact(X) for X in data_exact.X_ito ]
         self.exact_F_Strat = [ F_exact(X) for X in data_exact.X_strat ]
         self.ansatz_F_Ito   = [ self.F_ansatz(X) for X in data_exact.X_ito ]
-        self.ansatz_phi = [ self.phi_ansatz(X) for X in data_exact.X_ito ]
+        if self.compute_phi:
+            self.ansatz_phi = [ self.phi_ansatz(X) for X in data_exact.X_ito ]
 
         self.exact_D = D_exact
         self.exact_Dinv = lambda X : np.linalg.inv(self.exact_D(X))
@@ -230,6 +240,7 @@ class StochasticForceInference(object):
         self.exact_F_ansatz,self.exact_F_coefficients = self.projectors.projector_combination(self.exact_F_projections)
             
         self.force_projections_error = 0.25 * np.einsum('t,t->', data_exact.dt, np.array([ np.einsum('imn,im,in->',self.exact_Dinv(data_exact.X_ito[t]),self.exact_F_Ito[t]-self.ansatz_F_Ito[t],self.exact_F_Ito[t]-self.ansatz_F_Ito[t]) for t in range(len(data_exact.Xdot))])) / self.Information
+
         self.exact_Information = 0.25 * np.einsum('t,t->', data_exact.dt, np.array([ np.einsum('imn,im,in->',self.exact_Dinv(data_exact.X_ito[t]),self.exact_F_ansatz(data_exact.X_ito[t]),self.exact_F_ansatz(data_exact.X_ito[t])) for t in range(len(data_exact.Xdot))]))
         self.exact_Heat = np.einsum('t,t->', data_exact.dt, np.array([ np.einsum('imn,im,in->',self.exact_Dinv(data_exact.X_strat[t]),self.exact_F_ansatz(data_exact.X_strat[t]),data_exact.Xdot[t]) for t in range(len(data_exact.Xdot))]))
 

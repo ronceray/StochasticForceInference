@@ -18,8 +18,12 @@ def basis_selector(basis,data):
         funcs = Hermite_polynomial_basis(data.d,basis['order'],basis['center'],basis['std'])
     elif basis['type'] == 'particles_pair_interaction': 
         funcs = particles_pair_interaction(data.d,basis['kernels'])
+    elif basis['type'] == 'particles_pair_interaction_scalar': 
+        funcs = particles_pair_interaction_scalar(basis['kernels'])
     elif basis['type'] == 'particles_and_polynomial': 
         funcs = particles_polynomial_composite_basis(data.d,basis['order'],basis['kernels'])
+    elif basis['type'] == 'particles_and_polynomial_scalar': 
+        funcs = particles_polynomial_scalar_composite_basis(data.d,basis['order'],basis['kernels'])
     elif basis['type'] == 'coarse_graining':  
         funcs = coarse_graining_basis(data.d,basis['width'],basis['center'],basis['order'])
     elif basis['type'] == 'FORMA':  
@@ -116,6 +120,13 @@ def Hermite_polynomial_basis(dim,order,center,std,has_const = True):
 
 ### COARSE GRAINING ####
 def coarse_graining_basis(dim,width,center,order):
+    print("""Warning, using a non-differentiable basis (coarse-graining).  Do
+    NOT consider the StochasticForceInference methods "F_projections"
+    and its dependencies; use instead the phi_ansatz (Ito
+    estimate). The entropy production and capacity will need to be
+    manually re-computed. Note that SFI with multiplicative noise
+    and/or measurement noise will NOT work with this choice of
+    basis.""")
     Nfuncs = order**dim
     def index_finder(x):
         projection_indices = [ int(np.floor( (x[mu] - (center[mu] - 0.5*width[mu]))/(width[mu]) * order)) for mu in range(dim) ]
@@ -138,12 +149,18 @@ Laura Perez Garcia, Jaime Donlucas Perez, Giorgio Volpe, Alejandro V. Arzola and
 Nature Communicationsvolume 9, Article number: 5166 (2018) 
 """
 def FORMA_basis(dim,width,center,order):
+    print("""Warning, using a non-differentiable basis (linear-by-parts
+    coarse-graining).  Do NOT consider the StochasticForceInference
+    methods "F_projections" and its dependencies; use instead the
+    phi_ansatz (Ito estimate). The entropy production and capacity
+    will need to be manually re-computed. Note that SFI with
+    multiplicative noise and/or measurement noise will NOT work with
+    this choice of basis.""")
     Ncells = order**dim
     Nfuncs = (dim+1) * Ncells
 
     def index_finder(x):
         projection_indices = [ int(np.floor( (x[mu] - (center[mu] - 0.5*width[mu]))/(width[mu]) * order)) for mu in range(dim) ]
-        
         return sum([ ( imu * order**mu if  0 <= imu < order else np.inf )  for mu,imu in enumerate(projection_indices) ])
     
     def grid_function(X):
@@ -159,9 +176,10 @@ def FORMA_basis(dim,width,center,order):
 
 
 def particles_pair_interaction(dim,kernels):
-    # Radially symmetric pair interactions as a sum of kernels.
-    # Two-particle functions are chosen to be of the form f(R_ij) *
-    # (Xj - Xi)/Rij for a given set of functions f (kernels).
+    # Radially symmetric vector-like pair interactions as a sum of
+    # kernels.  Two-particle functions are chosen to be of the form
+    # f(R_ij) * (Xj - Xi)/Rij for a given set of functions f
+    # (kernels).
     def pair_function_spherical(X):
         # X is a Nparticles x dim - shaped array.
         Nparticles = X.shape[0]
@@ -174,6 +192,22 @@ def particles_pair_interaction(dim,kernels):
     return pair_function_spherical
 
 
+def particles_pair_interaction_scalar(kernels):
+    # Radially symmetric scalar-like pair interactions as a sum of
+    # kernels.  Two-particle functions are chosen to be of the form
+    # f(R_ij) for a given set of functions f (kernels).
+    def pair_function_spherical(X):
+        # X is a Nparticles x dim - shaped array.
+        Nparticles = X.shape[0]
+        Xij = np.array([[ Xj - Xi for j,Xj in enumerate(X) ] for i,Xi in enumerate(X) ])
+        Rij = np.linalg.norm(Xij,axis=2)
+        f_Rij = np.nan_to_num(np.array([ f(Rij) for f in kernels ]))
+        # Combine the kernel index f and the spatial index m into a
+        # single function index a:
+        return np.einsum('fij->if',f_Rij)
+    return pair_function_spherical
+
+
 
 
 def particles_polynomial_composite_basis(dim,order_single,kernels):
@@ -182,6 +216,15 @@ def particles_polynomial_composite_basis(dim,order_single,kernels):
     # sum of kernels.
     poly = polynomial_basis(dim,order_single)
     pair = particles_pair_interaction(dim,kernels)
+    return lambda X :  np.array([ v for v in poly(X).T ]+[ v for v in pair(X).T ]).T
+
+
+def particles_polynomial_scalar_composite_basis(dim,order_single,kernels):
+    # A composite basis: single-particle forces as polynomials
+    # (external field), and radially symmetric pair interactions as a
+    # sum of kernels.
+    poly = polynomial_basis(dim,order_single)
+    pair = particles_pair_interaction_scalar(kernels)
     return lambda X :  np.array([ v for v in poly(X).T ]+[ v for v in pair(X).T ]).T
 
 

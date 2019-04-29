@@ -74,14 +74,24 @@ class StochasticTrajectoryData(object):
         elif integration_style=='StratonovichOnPoint':
             X = self.X_ito[1:]
             dt = self.dt[1:]
+        elif integration_style=='StratonovichTruncated':
+            X = self.X_strat[1:-1]
+            dt = self.dt[1:-1]
         else:
             raise KeyError("Wrong integration_style keyword.")
-            
-        result = 0.
+        func = lambda t : np.einsum('im,in->mn', f(X[t]) if callable(f) else f[t] , g(X[t]) if callable(g) else g[t] )
+        return self.trajectory_integral(func,dt)
+
+    def trajectory_integral(self,func,dt=None):
+        # A helper function to perform trajectory integrals with
+        # constant memory use. The function takes integers as
+        # argument.
+        if dt is None:
+            dt = self.dt
+        result = 0. # Generic initialization - works with any
+                    # array-like function.
         for t,ddt in enumerate(dt):
-            f_t = f(X[t]) if callable(f) else f[t]
-            g_t = g(X[t]) if callable(g) else g[t] 
-            result += ddt * np.einsum('im,in->mn', f_t , g_t )
+            result += ddt * func(t)
         return result / self.tauN
 
     

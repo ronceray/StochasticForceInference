@@ -25,20 +25,15 @@ r,b,s = 6.,1.,3.
 force = lambda X : np.array([[ s*(x[2]-x[0]),
                                x[0]*x[2]-b*x[1],
                                r*x[0] - x[2] - x[1]*x[0]] for x in X ])
-"""
-force = lambda X : np.einsum('mn,in->im',D,np.array([ [ s*(x[1]-x[0]),
-                                                        r*x[0] - x[1] - x[2]*x[0],
-                                                        x[0]*x[1]-b*x[2] ] for x in X ]))
-"""
 # Note: the "for" loop runs over particles/copies of the simulation;
 #   it is not used here.
 
 # Simulation parameters
 initial_position = np.array([[0.1,0.1,0.1]]) 
-dt = 0.05
+dt = 0.01
 oversampling = 1
 prerun = 1000
-Npts = 4000
+Npts = 10000
 tau = dt * Npts
 tlist = np.linspace(0.,tau,Npts)
 
@@ -48,7 +43,7 @@ X = OverdampedLangevinProcess(force,D,tlist,initial_position=initial_position,ov
 
 # Possibly blur a bit the data to mimic noise from the measurement
 # device:
-noise_amplitude = 0.1
+noise_amplitude = 0.0
 noise = noise_amplitude * np.random.normal(size=X.data.shape)
 
 # The input of the inference method is the "xlist" array, which has
@@ -74,8 +69,9 @@ data = StochasticTrajectoryData(xlist,tlist)
 DI = DiffusionInference( data,
                          # An order 0 polynomial is just a constant - but you can try changing this parameter!
                          basis = { 'type' : 'polynomial', 'order' : 0}, 
-                         diffusion_method = 'Vestergaard', # Use this option for data with measurement noise, otherwise 'MSD'
-                         #diffusion_method = 'MSD',
+                         #diffusion_method = 'Vestergaard', # Use this option for data with measurement noise
+                         #diffusion_method = 'WeakNoise',   # Use this option for data where the force ~ the noise 
+                         diffusion_method = 'MSD',          # Use this one if trajectory length is the main limitation.
 )
 
 
