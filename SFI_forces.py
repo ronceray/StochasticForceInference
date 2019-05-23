@@ -178,6 +178,7 @@ class StochasticForceInference(object):
             # information and entropy production: D^-1_munu F_mualpha F_numalpha.
             self.Heat        =        np.einsum('ma,na,mn->',self.v_projections ,self.F_projections, self.Dinv) * self.data.tauN
             self.DeltaS      =        np.einsum('ma,na,mn->',self.v_projections ,self.v_projections, self.Dinv) * self.data.tauN
+            self.Inflow      =        np.einsum('ma,na,mn->',self.g_projections ,self.g_projections, self.D) * self.data.tauN
             self.Information = 0.25 * np.einsum('ma,na,mn->',self.F_projections ,self.F_projections, self.Dinv) * self.data.tauN
         else:
 
@@ -187,12 +188,14 @@ class StochasticForceInference(object):
 
             self.Information = 0.25 * self.data.trajectory_integral(lambda t : np.einsum('imn,im,in->',Dinv_Ito[t],ansatz_F_Ito[t],ansatz_F_Ito[t]) ) * self.data.tauN
             self.DeltaS =  self.data.trajectory_integral(lambda t : np.einsum('imn,im,in->',Dinv_Ito[t],ansatz_v_Ito[t],ansatz_v_Ito[t]) ) * self.data.tauN
+            self.Inflow =  self.data.trajectory_integral(lambda t : np.einsum('imn,im,in->',Dinv_Ito[t],ansatz_F_Ito[t]-ansatz_v_Ito[t],ansatz_F_Ito[t]-ansatz_v_Ito[t]) ) * self.data.tauN
             self.Heat =  self.data.trajectory_integral(lambda t : np.einsum('imn,im,in->',self.Dinv(self.data.X_strat[t]),self.F_ansatz(self.data.X_strat[t]),self.data.Xdot[t])) * self.data.tauN
-            
+             
 
         # Per-particle rates:
         self.Sdot     = self.DeltaS / self.data.tauN
         self.Capacity = self.Information / self.data.tauN
+        self.Inflow_rate = self.Inflow / self.data.tauN
         
         # The self-consistent uncertainty on the entropy production
         # and capacity estimators. IMPORTANT NOTE: this is only for
@@ -204,8 +207,32 @@ class StochasticForceInference(object):
         self.error_DeltaS = self.data.tauN * self.Sdot_error
         self.error_Information = self.data.tauN * self.C_error
 
-        self.projections_self_consistent_error = 0.5 * self.Nb / self.Information
+        # Squared typical error due to trajectory length
+        self.trajectory_length_error = 0.5 * self.Nb / self.Information
 
+        # Squared typical error due to time discretization
+        def b_grad_b(X):
+            # b_alpha partial_mu b_beta (X)
+            return np.einsum('ia,imib->imab',self.projectors.b(X),self.projectors.grad_b(X))
+        # No need for high precision here - save compute time by
+        # evaluating at most 100 points [10% error on the error is
+        # acceptable].
+        indices = range(0,len(self.data.X_ito),1+len(self.data.X_ito)//100)
+        FgradF = [ np.einsum('imab,ma,nb->in',b_grad_b(X),self.F_coefficients,self.F_coefficients) for X in self.data.X_ito[indices] ]
+        if self.diffusion_data["type"] == "constant":
+            av_FgradF_squared = np.einsum('tmn->mn',np.array([ np.einsum('in,im->mn',FgradF[ind],FgradF[ind])*self.data.dt[t]**3 for ind,t in enumerate(indices)])) / sum( self.data.dt[t] * self.data.Nparticles[t] for t in indices )
+            self.discretization_error_bias = 0.25 * np.einsum('mn,mn->',av_FgradF_squared,self.Dinv) / ( 4 * self.Capacity )
+        else:
+            av_DinvFgradF_squared = np.einsum('t->',np.array([ np.einsum('imn,in,im->',self.Dinv(self.data.X_ito[ind]),FgradF[ind],FgradF[ind])*self.data.dt[t]**3 for ind,t in enumerate(indices)])) / sum( self.data.dt[t] * self.data.Nparticles[t] for t in indices )
+            self.discretization_error_bias = 0.25 * av_DinvFgradF_squared / ( 4 * self.Capacity )
+        # The bias is only on the v part of the force, not on the D
+        # grad log P. 
+        self.discretization_error_bias *=  self.Sdot / ( 4 * self.Capacity )
+        # The dominant fluctuating term related to discretization
+        # error (exact, but should always be small).
+        self.discretization_error_flct = (1/3.) * self.Inflow_rate * self.data.dt.mean() / (4 * self.Capacity * self.data.tauN)
+
+        self.projections_self_consistent_error = self.trajectory_length_error + self.discretization_error_bias + self.discretization_error_flct
         if verbose:
             self.print_report()
 
@@ -248,20 +275,32 @@ class StochasticForceInference(object):
             # Total heat / information are with the full force field;
             # exact are with the exact projection of the force field
             # onto the trajectory projector.
+            print("             ")
+            print("  --- StochasticForceInference: comparison to exact data --- ")
             print("Heat: total/exact/inferred/inferred DeltaS/bootstrapped error",self.total_Heat,self.exact_Heat,self.Heat,self.DeltaS,self.error_DeltaS)
             print("Information: total/exact/inferred/bootstrapped error",self.total_Information,self.exact_Information,self.Information,self.error_Information)
             print("Information / entropy bias:",self.C_bias*data_exact.tauN,self.Sdot_bias*data_exact.tauN)
             print("Information in bits: total/exact/inferred/error",self.total_Information/np.log(2),self.exact_Information/np.log(2),self.Information/np.log(2),self.error_Information/np.log(2))
             print("Error on projections/self-consistent error:",self.force_projections_error,self.projections_self_consistent_error)
+            print("             ")
                 
     def print_report(self):
         """ Tell us a bit about yourself.
         """
+        print("             ")
+        print("  --- StochasticForceInference report --- ")
         print("Heat: inferred/DeltaS/bootstrapped error",self.Heat,self.DeltaS,self.error_DeltaS)
         print("Information: inferred/bootstrapped error",self.Information,self.error_Information)
         print("Information / entropy bias:",self.C_bias*self.data.tauN,self.Sdot_bias*self.data.tauN)
         print("Information in bits: inferred/error",self.Information/np.log(2),self.error_Information/np.log(2))
-        print("Self-consistent error of F projections:",self.projections_self_consistent_error)
+        print("Squared typical error on F projections:",self.projections_self_consistent_error)
+        print("  - due to trajectory length:",self.trajectory_length_error)
+        print("  - due to discretization (bias / fluctuating):",self.discretization_error_bias,self.discretization_error_flct)
+        if self.diffusion_data["type"] == "DiffusionInference":
+            print("Extra error on diffusion inference:")
+            print("  - with WeakNoise:", (self.Inflow_rate * self.data.dt.mean()/2)**2 )
+            print("  - otherwise:", (4*self.Capacity * self.data.dt.mean())**2 )
+            print("             ")
 
         
     def simulate_bootstrapped_trajectory(self,oversampling=1,use_drift_ansatz=False,divD=None):

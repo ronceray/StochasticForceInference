@@ -12,6 +12,8 @@ def basis_selector(basis,data):
         funcs = polynomial_basis(data.d,basis['order'])
     elif basis['type'] == 'Fourier':
         funcs = Fourier_basis(data.d,basis['order'],basis['center'],basis['width'])
+    elif basis['type'] == 'Chebyshev':
+        funcs = Chebyshev_basis(data.d,basis['order'],basis['center'],basis['width'])
     elif basis['type'] == 'FourierPlusHarmonic':
         funcs = polynomial_basis(data.d,1,False) + Fourier_basis(data.d,basis['order'],basis['center'],basis['width'])
     elif basis['type'] == 'Hermite':
@@ -88,6 +90,26 @@ def Fourier_basis(dim,order,center,width):
             Xc = 2 * np.pi* (X - center) / width
             return np.array([ [ 1. ] + [ np.cos( x.dot(c)) for c in coeffs_lowdim ] + [ np.sin( x.dot(c)) for c in coeffs_lowdim ] for x in Xc])
     return Fourier 
+
+
+def Chebyshev_basis(dim,order,center,width):
+    coeffs = [ np.array([[]],dtype=int) ]
+    for n in range(order):
+            # Generate the next coefficients:
+            new_coeffs = []
+            for c in coeffs[-1]:
+                # We generate loosely ordered lists of coefficients
+                # (c1 >= c2 >= c3 ...)  (avoids redundancies):
+                for i in range( (c[-1]+1) if c.shape[0]>0 else dim ):
+                    new_coeffs.append(list(c)+[i])
+            coeffs.append(np.array(new_coeffs,dtype=int))
+        
+    coeffs = [ c for degree in coeffs[1:] for c in degree ]
+    coeffs_lowdim = np.array([ [ list(c).count(i) for i in range(dim) ] for c in coeffs ])
+    def Chebyshev(X):
+        Xc = (X - center) / width
+        return np.array([[ np.prod([ np.cos(n[d]*np.arccos(x[d])) for d in range(dim)]) for n in coeffs_lowdim ] for x in Xc])
+    return Chebyshev
 
 def Hermite_polynomial_basis(dim,order,center,std,has_const = True):
     # A simple polynomial basis times a gaussian kernel,

@@ -37,6 +37,7 @@ class DiffusionInference(object):
         if diffusion_method == 'MSD':
             D_local = [ np.einsum('im,in->imn',self.data.dX[t],self.data.dX[t])/(2*dt) for t,dt in enumerate(self.data.dt)   ]
             integration_style = 'Stratonovich' 
+            self.error_factor = 1
         elif diffusion_method == 'Vestergaard':
             # Local estimator inspired by "Vestergaard CL, Blainey PC,
             # Flyvbjerg H (2014). Optimal estimation of diffusion
@@ -49,25 +50,23 @@ class DiffusionInference(object):
             # D. Note that the error is minimized when symmetrizing the
             # correction term and integrating in Ito, i.e. evaluating
             # the projector at the initial point of the interval.
-            dXp = self.data.dX[1:]
-            dXm = self.data.dX[:-1]
-            dX0 = dXp + dXm
-            D_local = [ (   np.einsum('im,in->imn',dX0[t],dX0[t])
+            dXp = self.data.dX
+            dXm = self.data.dX_pre
+            D_local = [ (   np.einsum('im,in->imn',dXp[t]+dXm[t],dXp[t]+dXm[t])
                         +   np.einsum('im,in->imn',dXp[t],dXm[t])
                         +   np.einsum('im,in->imn',dXm[t],dXp[t]))
-                        /(4*dt) for t,dt in enumerate(self.data.dt[1:])   ]
-            # There is one point fewer than for usual integration. We
-            # integrate in a symmetric way with respect to the
-            # estimator, i.e. over X[1:-1].
-            integration_style = 'StratonovichOnPoint'
+                        /(4*dt) for t,dt in enumerate(self.data.dt)   ]
+            integration_style = 'Ito'
+            self.error_factor = 4
         elif diffusion_method == 'WeakNoise':
-            ddX = self.data.dX[1:] - self.data.dX[:-1]
-            D_local = [ np.einsum('im,in->imn',ddX[t],ddX[t])/(4*dt) for t,dt in enumerate(self.data.dt[1:])   ]
-            # There is one point fewer than for usual integration. We
-            # integrate in a symmetric way with respect to the
-            # estimator, i.e. over X[1:-1].
-            integration_style = 'StratonovichOnPoint'
-        elif diffusion_method == 'WCS':
+            # An estimator compensating for persistent forces, at the
+            # cost of a x2 increase of the convergence.
+            dXp = self.data.dX
+            dXm = self.data.dX_pre
+            D_local = [ np.einsum('im,in->imn',dXp[t]-dXm[t],dXp[t]-dXm[t])/(4*dt) for t,dt in enumerate(self.data.dt[1:])   ]
+            integration_style = 'Ito'
+            self.error_factor = 2
+        elif diffusion_method == 'WCS --- DO NOT USE':
             ddXp = 0.5 * (self.data.dX[2:] - self.data.dX[1:-1])
             ddXm = 0.5 * (self.data.dX[1:-1] - self.data.dX[:-2])
             D_local = [ ( np.einsum('im,in->imn',ddXp[t]+ddXm[t],ddXp[t]+ddXm[t] ) +
@@ -86,14 +85,36 @@ class DiffusionInference(object):
         self.D_projections = np.array([ inflate_symmetric(Di,self.data.d) for Di in D_projections_reshaped.T]).T 
         self.D_ansatz,self.D_coefficients = self.projectors.projector_combination(self.D_projections) 
 
-        self.D_average = np.einsum('t,tmn->mn',self.data.dt[:len(D_local)],np.array([ np.einsum('imn->mn',D) for D in D_local]))/self.data.tauN
+        self.D_average = np.einsum('t,tmn->mn',self.data.dt,np.array([ np.einsum('imn->mn',D) for D in D_local]))/self.data.tauN
 
         # Defining a derivative-based ansatz for div D:
         def divD(x):         
             return np.einsum('mna,jmia->in', self.D_coefficients, self.projectors.grad_b(x) )
         self.divD_ansatz = divD
-        
-        self.bootstrapped_Dproj_error = np.prod(self.D_projections.shape) / ( 1.* sum(self.data.Nparticles))
+
+
+        # Estimate the squared error on the inferred D.
+        # 1. due to trajectory length (lack of data):
+        self.trajectory_length_error = self.error_factor * np.prod(self.D_projections.shape) / ( 1.* sum(self.data.Nparticles))
+
+        # 2. due to time discretization:
+        indices = range(0,len(self.data.X_ito),1+len(self.data.X_ito)//100)
+        ansatz_divD = [ self.divD_ansatz(X) for X in self.data.X_ito[indices] ]
+        Dinv = np.linalg.inv(self.D_average)
+        self.spurious_capacity = 0.25 * np.einsum('tmn,nm->',np.array([ np.einsum('in,im->mn',ansatz_divD[ind],ansatz_divD[ind])*self.data.dt[t] for ind,t in enumerate(indices)]),Dinv) / sum( self.data.dt[t] * self.data.Nparticles[t] for t in indices )
+        self.discretization_error_bias = (2 * self.spurious_capacity * self.data.dt.mean() )**2
+
+        # 3. Note that there is an extra contribution, coming from the
+        # force, that is not included here. It is of the form
+        #     (4 * Capacity * dt)**2
+        # if the diffusion method is 'MSD' or 'Vestergaard', and of the
+        # form (smaller)
+        #     (Inflow_rate * dt / 2)**2
+        # with the 'WeakNoise' method. The StochasticForceInference class
+        # will provide an estimate of this error.
+
+        self.projections_self_consistent_error = self.trajectory_length_error + self.discretization_error_bias
+
         self.safety_checks()
         if verbose:
             self.print_report()
@@ -117,7 +138,7 @@ class DiffusionInference(object):
         self.ansatz_divD = [ self.divD_ansatz(X) for X in data_exact.X_ito ]
 
         # Evaluate the precision as < ||(De-Di)/(De+Di)||^2 >
-        self.D_precision = np.array([ np.linalg.norm( np.einsum('imn,ino->imo', np.linalg.inv(D + self.ansatz_D[t]), D - self.ansatz_D[t]))**2 for t,D in enumerate(self.exact_D) ]).mean() 
+        self.D_precision = np.array([ np.linalg.norm( np.einsum('imn,ino->imo', np.linalg.inv(D + self.ansatz_D[t]), D - self.ansatz_D[t]))**2 for t,D in enumerate(self.exact_D) ]).mean()  
         self.divD_precision = np.array([ np.linalg.norm(d-self.ansatz_divD[t])**2/(np.linalg.norm(d)**2 + np.linalg.norm(self.ansatz_divD[t])**2+1e-50)  for t,d in enumerate(self.exact_divD) ]).mean()
         
         D_local_reshaped = [ np.array([ flatten_symmetric(De,self.data.d) for De in D_exact(X)]) for X in data_exact.X_ito ]
@@ -126,18 +147,29 @@ class DiffusionInference(object):
         self.D_projections_error = np.linalg.norm(self.exact_D_projections - self.D_projections)**2 / np.linalg.norm(self.D_projections)**2 
         
         if verbose:
+            print("             ")
+            print("  --- DiffusionInference: comparison to exact data --- ")
             print("Error on inferred D along trajectory:",self.D_precision)
-            print("Error on inferred D projection; bootstrapped error:",self.D_projections_error,self.bootstrapped_Dproj_error)
+            print("Error on inferred D projection; bootstrapped error:",self.D_projections_error,self.projections_self_consistent_error)
             if self.divD_precision > 0:
                 # Don't print it for constant D.
                 print("Error on div D:",self.divD_precision)
+            print("             ")
 
 
     def print_report(self):
         """Tell us a bit about yourself."""
+        print("             ")
+        print("  --- DiffusionInference report --- ")
         print("Average diffusion tensor:\n",self.D_average)
-        print("Bootstrapped error on projections:",self.bootstrapped_Dproj_error)
+        print("Bootstrapped squared typical error on projections:",self.projections_self_consistent_error)
+        print("  - due to trajectory length:",self.trajectory_length_error)
+        print("  - due to discretization:",self.discretization_error_bias)
+        print("  - plus additional force-induced errors (see force inference report)")
         print("Eigenvalues variations around average D: min/max/std:",self.emin,self.emax,self.estd)
+        print("             ")
+
+        
  
     def safety_checks(self):
         """Basic tests to check the variations of the diffusion around the

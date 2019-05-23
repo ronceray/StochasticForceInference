@@ -28,12 +28,13 @@ class StochasticTrajectoryData(object):
         """
         if data_type == 'homogeneous':
             Nparticles,self.d = data[0].shape
-            self.t = t[:-1]
-            self.dt = t[1:] - t[:-1]
+            self.t = t[1:-1]
+            self.dt = t[2:] - t[1:-1] 
 
-            self.X_strat = 0.5*(data[1:]+data[:-1]) 
-            self.X_ito = 1. * data[:-1] 
-            self.dX = data[1:] - data[:-1]
+            self.X_ito = 1. * data[1:-1] 
+            self.dX = data[2:] - data[1:-1]
+            self.dX_pre = data[1:-1] - data[:-2]
+            self.X_strat = self.X_ito + 0.5 * self.dX
             self.Xdot = np.einsum('tmi,t->tmi',self.dX, 1. /self.dt)
             self.Nparticles = [ X.shape[0] for X in self.X_strat ] 
             # Total time-per-particle in the trajectory
@@ -42,9 +43,10 @@ class StochasticTrajectoryData(object):
 
         elif data_type == 'heterogeneous':
             self.t = t[:-1]
-            self.X_strat = data['X_strat']
             self.X_ito = data['X_ito']
             self.dX = data['dX']
+            self.dX_pre = data['dX_pre']
+            self.X_strat = [ self.X_ito[t] + 0.5 * self.dX[t] for t,dt in enumerate(self.dt) ]
             self.dt = data['dt']
             self.d = self.X_ito[0].shape[1]
             self.Nparticles = [ X.shape[0] for X in self.X_strat ] 
@@ -71,9 +73,6 @@ class StochasticTrajectoryData(object):
         elif integration_style=='Ito':
             X = self.X_ito
             dt = self.dt
-        elif integration_style=='StratonovichOnPoint':
-            X = self.X_ito[1:]
-            dt = self.dt[1:]
         elif integration_style=='StratonovichTruncated':
             X = self.X_strat[1:-1]
             dt = self.dt[1:-1]
