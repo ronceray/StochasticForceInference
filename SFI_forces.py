@@ -114,6 +114,10 @@ class StochasticForceInference(object):
         # ie the self.projectors.c functions) are given by
         # Stratonovich integration of x_dot(t) c_n(x(t)).
         self.v_projections = np.einsum('ma,ab->mb',self.data.inner_product_empirical( self.data.Xdot, self.projectors.b, integration_style = 'Stratonovich' ), self.projectors.H )
+        # As far as I can tell this alternative formula works just as well (Stratonovich on point)
+        #self.v_projections = np.einsum('ma,ab->mb',self.data.inner_product_empirical([(self.data.dX_pre[t] + self.data.dX[t])/(2*dt) for t,dt in enumerate(self.data.dt)], self.projectors.b, integration_style = 'Ito' ), self.projectors.H)
+
+        
         
         # The ansatz reconstructs the velocity field as
         #     v_ansatz_mu(x) = sum_a v_projections_mu_a c_a(x)
@@ -218,7 +222,7 @@ class StochasticForceInference(object):
         # evaluating at most 100 points [10% error on the error is
         # acceptable].
         indices = range(0,len(self.data.X_ito),1+len(self.data.X_ito)//100)
-        FgradF = [ np.einsum('imab,ma,nb->in',b_grad_b(X),self.F_coefficients,self.F_coefficients) for X in self.data.X_ito[indices] ]
+        FgradF = [ np.einsum('imab,ma,nb->in',b_grad_b(self.data.X_ito[ind]),self.F_coefficients,self.F_coefficients) for ind in indices ]
         if self.diffusion_data["type"] == "constant":
             av_FgradF_squared = np.einsum('tmn->mn',np.array([ np.einsum('in,im->mn',FgradF[ind],FgradF[ind])*self.data.dt[t]**3 for ind,t in enumerate(indices)])) / sum( self.data.dt[t] * self.data.Nparticles[t] for t in indices )
             self.discretization_error_bias = 0.25 * np.einsum('mn,mn->',av_FgradF_squared,self.Dinv) / ( 4 * self.Capacity )
@@ -236,7 +240,7 @@ class StochasticForceInference(object):
         if verbose:
             self.print_report()
 
-            
+             
     def compute_accuracy(self,F_exact,D_exact,data_exact=None,verbose=True):
         """Evaluate the accuracy of the method when the actual force field is
         known.

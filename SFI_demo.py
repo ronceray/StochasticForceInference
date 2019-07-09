@@ -59,7 +59,7 @@ tlist = X.t
 
 # We use a wrapper class, StochasticTrajectoryData, to format the data
 # in a way that the inference methods can use.
-data = StochasticTrajectoryData(xlist,tlist)
+data = StochasticTrajectoryData(xlist,tlist) 
 
 
 
@@ -68,10 +68,10 @@ data = StochasticTrajectoryData(xlist,tlist)
 
 DI = DiffusionInference( data,
                          # An order 0 polynomial is just a constant - but you can try changing this parameter!
-                         basis = { 'type' : 'polynomial', 'order' : 0}, 
+                         basis = { 'type' : 'polynomial', 'order' : 0},   
                          #diffusion_method = 'Vestergaard', # Use this option for data with measurement noise
-                         #diffusion_method = 'WeakNoise',   # Use this option for data where the force ~ the noise 
-                         diffusion_method = 'MSD',          # Use this one if trajectory length is the main limitation.
+                         diffusion_method = 'WeakNoise',   # Use this option for data where the force ~ the noise  
+                         #diffusion_method = 'MSD',          # Use this one if trajectory length is the main limitation.
 )
 
 
@@ -87,7 +87,7 @@ L = StochasticForceInference( data,
                               #diffusion_data = {"type" : "constant", "D" : D}, # Uncomment this if you want to skip diffusion inference
                               diffusion_data = {"type" : "DiffusionInference", "DI" : DI, "cutoff" : None},
                               # We fit here the force with an order 2 polynomial.
-                              basis = { 'type' : 'polynomial', 'order' : 2},
+                              basis = { 'type' : 'polynomial', 'order' : 2}, 
 )
 
 # The inferred force and velocity fields at position X can be

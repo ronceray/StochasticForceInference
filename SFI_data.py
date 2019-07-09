@@ -42,12 +42,12 @@ class StochasticTrajectoryData(object):
 
 
         elif data_type == 'heterogeneous':
-            self.t = t[:-1]
+            self.t = t
             self.X_ito = data['X_ito']
             self.dX = data['dX']
             self.dX_pre = data['dX_pre']
-            self.X_strat = [ self.X_ito[t] + 0.5 * self.dX[t] for t,dt in enumerate(self.dt) ]
             self.dt = data['dt']
+            self.X_strat = [ self.X_ito[t] + 0.5 * self.dX[t] for t,dt in enumerate(self.dt) ]
             self.d = self.X_ito[0].shape[1]
             self.Nparticles = [ X.shape[0] for X in self.X_strat ] 
             self.tauN = np.einsum('t,t->',self.dt,self.Nparticles)
@@ -216,12 +216,18 @@ class StochasticTrajectoryData(object):
         mayavi.mlab.plot3d(x,y,z,self.t,colormap='bone')
 
 
-    def plot_field_3D(self,dir1,dir2,dir3,field=None,center=None,Npts = 10,scale=1.,autoscale=False,color='g',radius=None,positions = None,cmap='summer',cval=0.,**kwargs):
+    def plot_field_3D(self,field,dir1=None,dir2=None,dir3=None,center=None,Npts = 10,scale=1.,autoscale=False,color='g',radius=None,positions = None,cmap='summer',cval=0.,**kwargs):
         # Display a 3D vector field (requires Mayavi2 package)
         import mayavi.mlab
         f = mayavi.mlab.gcf()
         f.scene.background = (1.,1.,1.)
 
+        if dir1 is None:
+            dir1 = axisvector(0,self.d)
+        if dir2 is None:
+            dir2 = axisvector(1,self.d)
+        if dir3 is None:
+            dir3 = axisvector(2,self.d)
         if center is None:
             center = self.X_ito.mean(axis=(0,1))
         if radius is None:

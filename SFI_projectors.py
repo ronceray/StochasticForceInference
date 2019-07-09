@@ -24,7 +24,7 @@ class TrajectoryProjectors(object):
         try:
             self.H = sqrtm(np.linalg.inv(self.B))
         except LinAlgError:
-            print("Warning, singular normalization matrix, using pseudo-inverse.")
+            print("Warning, singular normalization matrix (redundant basis or dataset too small), using pseudo-inverse.")
             self.H = np.real(sqrtm(np.linalg.pinv(self.B)))
         self.c = lambda X : np.einsum( 'ia,ab->ib', self.b(X), self.H )
         self.grad_c = lambda X, epsilon=1e-6 : np.einsum( 'jmia,ab->jmib', self.grad_b(X,epsilon), self.H )

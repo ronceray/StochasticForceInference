@@ -19,7 +19,7 @@ class DiffusionInference(object):
     - diffusion_method selects the local diffusion estimator: 'MSD' or
       'Vestergaard'.
     """ 
-    def __init__(self,data,basis,diffusion_method = 'MSD',verbose=True):
+    def __init__(self,data,basis,diffusion_method = 'MSD',verbose=True,do_safety_checks=True):
         self.data = data
         self.basis = basis
 
@@ -63,18 +63,9 @@ class DiffusionInference(object):
             # cost of a x2 increase of the convergence.
             dXp = self.data.dX
             dXm = self.data.dX_pre
-            D_local = [ np.einsum('im,in->imn',dXp[t]-dXm[t],dXp[t]-dXm[t])/(4*dt) for t,dt in enumerate(self.data.dt[1:])   ]
+            D_local = [ np.einsum('im,in->imn',dXp[t]-dXm[t],dXp[t]-dXm[t])/(4*dt) for t,dt in enumerate(self.data.dt)   ]
             integration_style = 'Ito'
             self.error_factor = 2
-        elif diffusion_method == 'WCS --- DO NOT USE':
-            ddXp = 0.5 * (self.data.dX[2:] - self.data.dX[1:-1])
-            ddXm = 0.5 * (self.data.dX[1:-1] - self.data.dX[:-2])
-            D_local = [ ( np.einsum('im,in->imn',ddXp[t]+ddXm[t],ddXp[t]+ddXm[t] ) +
-                          np.einsum('im,in->imn',ddXp[t],ddXm[t] ) *(4/(5*dt))) for t,dt in enumerate(self.data.dt[1:-1])   ]
-            # There is one point fewer than for usual integration. We
-            # integrate in a symmetric way with respect to the
-            # estimator, i.e. over X[1:-1].
-            integration_style = 'StratonovichTruncated'
         else:
             raise KeyError("Wrong diffusion_method argument.")
         # Reshape into vectors as inner product allows for only one
@@ -84,13 +75,13 @@ class DiffusionInference(object):
         # Back to matrix form:
         self.D_projections = np.array([ inflate_symmetric(Di,self.data.d) for Di in D_projections_reshaped.T]).T 
         self.D_ansatz,self.D_coefficients = self.projectors.projector_combination(self.D_projections) 
-
         self.D_average = np.einsum('t,tmn->mn',self.data.dt,np.array([ np.einsum('imn->mn',D) for D in D_local]))/self.data.tauN
-
+        
         # Defining a derivative-based ansatz for div D:
         def divD(x):         
             return np.einsum('mna,jmia->in', self.D_coefficients, self.projectors.grad_b(x) )
         self.divD_ansatz = divD
+        
 
 
         # Estimate the squared error on the inferred D.
@@ -99,7 +90,7 @@ class DiffusionInference(object):
 
         # 2. due to time discretization:
         indices = range(0,len(self.data.X_ito),1+len(self.data.X_ito)//100)
-        ansatz_divD = [ self.divD_ansatz(X) for X in self.data.X_ito[indices] ]
+        ansatz_divD = [ self.divD_ansatz(self.data.X_ito[ind]) for ind in indices ]
         Dinv = np.linalg.inv(self.D_average)
         self.spurious_capacity = 0.25 * np.einsum('tmn,nm->',np.array([ np.einsum('in,im->mn',ansatz_divD[ind],ansatz_divD[ind])*self.data.dt[t] for ind,t in enumerate(indices)]),Dinv) / sum( self.data.dt[t] * self.data.Nparticles[t] for t in indices )
         self.discretization_error_bias = (2 * self.spurious_capacity * self.data.dt.mean() )**2
@@ -115,7 +106,8 @@ class DiffusionInference(object):
 
         self.projections_self_consistent_error = self.trajectory_length_error + self.discretization_error_bias
 
-        self.safety_checks()
+        if do_safety_checks:
+            self.safety_checks()
         if verbose:
             self.print_report()
 
@@ -133,18 +125,24 @@ class DiffusionInference(object):
             data_exact = self.data
             
         self.exact_D  = [ D_exact(X) for X in data_exact.X_ito ]
+        self.exact_D_average  = np.einsum('tmn->mn',np.array([ np.einsum('imn->mn',D) for D in self.exact_D ])) / data_exact.tauN
         self.ansatz_D = [ self.D_ansatz(X) for X in data_exact.X_ito ]
         self.exact_divD  = [ divD_exact(X) for X in data_exact.X_ito ]
         self.ansatz_divD = [ self.divD_ansatz(X) for X in data_exact.X_ito ]
+        
 
-        # Evaluate the precision as < ||(De-Di)/(De+Di)||^2 >
+        # Evaluate the precision along the trajectory as < ||(De-Di)/(De+Di)||^2 >
         self.D_precision = np.array([ np.linalg.norm( np.einsum('imn,ino->imo', np.linalg.inv(D + self.ansatz_D[t]), D - self.ansatz_D[t]))**2 for t,D in enumerate(self.exact_D) ]).mean()  
         self.divD_precision = np.array([ np.linalg.norm(d-self.ansatz_divD[t])**2/(np.linalg.norm(d)**2 + np.linalg.norm(self.ansatz_divD[t])**2+1e-50)  for t,d in enumerate(self.exact_divD) ]).mean()
-        
+
+        # Evaluate the precision of the projections (ie convergence of fit)
         D_local_reshaped = [ np.array([ flatten_symmetric(De,self.data.d) for De in D_exact(X)]) for X in data_exact.X_ito ]
         D_projections_reshaped = self.data.inner_product_empirical( D_local_reshaped, self.projectors.c, integration_style = 'Ito' ) 
-        self.exact_D_projections = np.array([ inflate_symmetric(Di,self.data.d) for Di in D_projections_reshaped.T]).T 
-        self.D_projections_error = np.linalg.norm(self.exact_D_projections - self.D_projections)**2 / np.linalg.norm(self.D_projections)**2 
+        self.exact_D_projections = np.array([ inflate_symmetric(Di,self.data.d) for Di in D_projections_reshaped.T]).T
+        Dinv = np.linalg.inv(self.exact_D_average)
+        # To compute a dimensionally correct error, we normalize by
+        # the inverse of the average diffusion.
+        self.D_projections_error = np.linalg.norm(np.einsum('mn,ano->amo',Dinv,self.exact_D_projections - self.D_projections))**2 / np.linalg.norm(np.einsum('mn,ano->amo',Dinv,self.D_projections))**2 
         
         if verbose:
             print("             ")
@@ -166,8 +164,11 @@ class DiffusionInference(object):
         print("  - due to trajectory length:",self.trajectory_length_error)
         print("  - due to discretization:",self.discretization_error_bias)
         print("  - plus additional force-induced errors (see force inference report)")
-        print("Eigenvalues variations around average D: min/max/std:",self.emin,self.emax,self.estd)
-        print("             ")
+        try:
+            print("Eigenvalues variations around average D: min/max/std:",self.emin,self.emax,self.estd)
+        except:
+            pass
+        print("             ") 
 
         
  
