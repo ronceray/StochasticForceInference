@@ -173,6 +173,7 @@ class StochasticForceInference(object):
         self.Nb = np.prod(self.v_projections.shape) 
         self.Sdot_bias = 2 * self.Nb /self.data.tauN
         self.C_bias = 0.5 * self.Nb /self.data.tauN
+        self.I_bias = 0.5 * self.Nb 
 
         # Compute the entropy production and information along the
         # trajectory. Note they are biased estimators.
@@ -210,7 +211,11 @@ class StochasticForceInference(object):
         
         self.error_DeltaS = self.data.tauN * self.Sdot_error
         self.error_Information = self.data.tauN * self.C_error
-
+        # The information that is statistically resolved (useful to
+        # optimize the basis size over over/underfitting: maximize
+        # this quantity).
+        self.resolved_Information = self.Information - self.error_Information - self.I_bias
+        
         # Squared typical error due to trajectory length
         self.trajectory_length_error = 0.5 * self.Nb / self.Information
 
