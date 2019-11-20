@@ -8,37 +8,34 @@ import numpy as np
 
 
 def basis_selector(basis,data):
+    is_interacting = False
     if basis['type'] == 'polynomial':
         funcs = polynomial_basis(data.d,basis['order'])
     elif basis['type'] == 'Fourier':
         funcs = Fourier_basis(data.d,basis['order'],basis['center'],basis['width'])
-    elif basis['type'] == 'Chebyshev':
-        funcs = Chebyshev_basis(data.d,basis['order'],basis['center'],basis['width'])
-    elif basis['type'] == 'FourierPlusHarmonic':
-        funcs = polynomial_basis(data.d,1,False) + Fourier_basis(data.d,basis['order'],basis['center'],basis['width'])
-    elif basis['type'] == 'Hermite':
-        funcs = Hermite_polynomial_basis(data.d,basis['order'],basis['center'],basis['std'])
-    elif basis['type'] == 'particles_pair_interaction': 
-        funcs = particles_pair_interaction(data.d,basis['kernels'])
-    elif basis['type'] == 'particles_pair_interaction_scalar': 
-        funcs = particles_pair_interaction_scalar(basis['kernels'])
-    elif basis['type'] == 'particles_and_polynomial': 
-        funcs = particles_polynomial_composite_basis(data.d,basis['order'],basis['kernels'])
-    elif basis['type'] == 'particles_and_polynomial_scalar': 
-        funcs = particles_polynomial_scalar_composite_basis(data.d,basis['order'],basis['kernels'])
     elif basis['type'] == 'coarse_graining':  
         funcs = coarse_graining_basis(data.d,basis['width'],basis['center'],basis['order'])
     elif basis['type'] == 'FORMA':  
         funcs = FORMA_basis(data.d,basis['width'],basis['center'],basis['order'])
-    elif basis['type'] == 'self_propelled_particles': 
-        funcs = self_propelled_particles_basis(basis['order'],basis['kernels'])
-    elif basis['type'] == 'single_self_propelled_particle': 
-        funcs = single_self_propelled_particle_basis()
-    elif basis['type'] == 'custom': 
-        funcs = basis['functions']
-    else:
-        raise KeyError("Unknown basis type.") 
-    return funcs
+    else: # Interacting particles basis
+        is_interacting = True
+        if basis['type'] == 'particles_pair_interaction': 
+            funcs = particles_pair_interaction(data.d,basis['kernels'])
+        elif basis['type'] == 'particles_pair_interaction_scalar': 
+            funcs = particles_pair_interaction_scalar(basis['kernels'])
+        elif basis['type'] == 'particles_and_polynomial': 
+            funcs = particles_polynomial_composite_basis(data.d,basis['order'],basis['kernels'])
+        elif basis['type'] == 'particles_and_polynomial_scalar': 
+            funcs = particles_polynomial_scalar_composite_basis(data.d,basis['order'],basis['kernels'])
+        elif basis['type'] == 'self_propelled_particles': 
+            funcs = self_propelled_particles_basis(basis['order'],basis['kernels'])
+        elif basis['type'] == 'single_self_propelled_particle': 
+            funcs = single_self_propelled_particle_basis()
+        elif basis['type'] == 'custom': 
+            funcs = basis['functions']
+        else:
+            raise KeyError("Unknown basis type.") 
+    return funcs,is_interacting
 
 
 
@@ -54,7 +51,7 @@ def polynomial_basis(dim,order):
     for n in range(order):
             # Generate the next coefficients:
             new_coeffs = []
-            for c in coeffs[-1]:
+            for c in coeffs[-1]: 
                 # We generate loosely ordered lists of coefficients
                 # (c1 >= c2 >= c3 ...)  (avoids redundancies):
                 for i in range( (c[-1]+1) if c.shape[0]>0 else dim ):
@@ -62,7 +59,7 @@ def polynomial_basis(dim,order):
             coeffs.append(np.array(new_coeffs,dtype=int)) 
     # Group all coefficients together
     coeffs = [ c for degree in coeffs for c in degree ] 
-    return lambda X : np.array([[ np.prod(x[c]) for c in coeffs ] for x in X])
+    return lambda X : np.array([[ np.prod(x[c]) for c in coeffs ] for x in X]) 
 
 
 def Fourier_basis(dim,order,center,width):
@@ -83,60 +80,24 @@ def Fourier_basis(dim,order,center,width):
         # dim > order, dense otherwise.
         def Fourier(X):
             Xc = 2 * np.pi* (X - center) / width
-            return np.array([ [ 1. ] + [ np.cos(sum(x[c])) for c in coeffs ] + [ np.sin(sum(x[c])) for c in coeffs ] for x in Xc])
+            vals = np.ones((len(Xc),2*len(coeffs)+1))
+            for j,x in enumerate(Xc):
+                for i,c in enumerate(coeffs):
+                    vals[j,2*i+1] = np.cos(sum(x[c]))
+                    vals[j,2*i+2] = np.sin(sum(x[c])) 
+            return vals
     else:
         coeffs_lowdim = np.array([ [ list(c).count(i) for i in range(dim) ] for c in coeffs ])
         def Fourier(X):
             Xc = 2 * np.pi* (X - center) / width
-            return np.array([ [ 1. ] + [ np.cos( x.dot(c)) for c in coeffs_lowdim ] + [ np.sin( x.dot(c)) for c in coeffs_lowdim ] for x in Xc])
+            vals = np.ones((len(Xc),2*len(coeffs_lowdim)+1))
+            for j,x in enumerate(Xc):
+                for i,c in enumerate(coeffs_lowdim):
+                    vals[j,2*i+1] = np.cos( x.dot(c))
+                    vals[j,2*i+2] = np.sin( x.dot(c))
+            return vals
     return Fourier 
 
-
-def Chebyshev_basis(dim,order,center,width):
-    coeffs = [ np.array([[]],dtype=int) ]
-    for n in range(order):
-            # Generate the next coefficients:
-            new_coeffs = []
-            for c in coeffs[-1]:
-                # We generate loosely ordered lists of coefficients
-                # (c1 >= c2 >= c3 ...)  (avoids redundancies):
-                for i in range( (c[-1]+1) if c.shape[0]>0 else dim ):
-                    new_coeffs.append(list(c)+[i])
-            coeffs.append(np.array(new_coeffs,dtype=int))
-        
-    coeffs = [ c for degree in coeffs[1:] for c in degree ]
-    coeffs_lowdim = np.array([ [ list(c).count(i) for i in range(dim) ] for c in coeffs ])
-    def Chebyshev(X):
-        Xc = (X - center) / width
-        return np.array([[ np.prod([ np.cos(n[d]*np.arccos(x[d])) for d in range(dim)]) for n in coeffs_lowdim ] for x in Xc])
-    return Chebyshev
-
-def Hermite_polynomial_basis(dim,order,center,std,has_const = True):
-    # A simple polynomial basis times a gaussian kernel,
-    #        X -> exp( -|X - center|^2 / 2 s^2) X_mu X_nu ...
-    # up to polynomial degree 'order'.  If "has const", also include X -> 1
-    # in the basis.
-    coeffs = [ np.array([[]],dtype=int) ]
-    for n in range(order):
-            # Generate the next coefficients:
-            new_coeffs = []
-            for c in coeffs[-1]:
-                # We generate loosely ordered lists of coefficients
-                # (c1 >= c2 >= c3 ...)  (avoids redundancies):
-                for i in range( (c[-1]+1) if c.shape[0]>0 else dim ):
-                    new_coeffs.append(list(c)+[i])
-            coeffs.append(np.array(new_coeffs,dtype=int)) 
-
-    coeffs = [ c for degree in coeffs for c in degree ]
-    sigma = 2*std**2
-    def Hermite(X):
-        Y = np.array([ x - center for x in X ])
-        w = np.array([ np.exp(- np.linalg.norm(y)**2 / sigma )  for y in Y ])
-        if has_const:
-            return np.array([ [ 1.] + [ w[i]*np.prod(y[c]) for c in coeffs ] for i,y in enumerate(Y)])
-        else:
-            return np.array([         [ w[i]*np.prod(y[c]) for c in coeffs ] for i,y in enumerate(Y)])
-    return Hermite 
     
 
 
@@ -255,13 +216,7 @@ def self_propelled_particles_basis(order_single,kernels):
     self_propulsion =  lambda X : np.array([ np.cos(X[:,2]), np.sin(X[:,2]) ]).T 
     poly = polynomial_basis(2,order_single)
     pair = particles_pair_interaction(2,kernels)
-    return lambda X :  np.array([ v for v in poly(X[:,:2]).T ]+[ v for v in pair(X[:,:2]).T ]+[ v for v in self_propulsion(X).T ]).T
+    return lambda X :  np.array([ v for v in poly(X[:,:2]).T ]+[ v for v in self_propulsion(X).T ]+[ v for v in pair(X[:,:2]).T ]).T
     
 
-
-
-def single_self_propelled_particle_basis():
-    # Palacci lab tests
-    self_propulsion_functions = [ lambda X : np.array([ 1 + 0.*X[:,2] , np.cos(X[:,2]), np.sin(X[:,2]) ]) ]
-    return self_propulsion_functions
 

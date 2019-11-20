@@ -21,9 +21,12 @@ class StochasticTrajectoryData(object):
         If it is 'heterogeneous', this corresponds to trajectories
         where the number of particles varies with time, for
         instance. In this case we'll assume that the analysis has been
-        done before, and that data is a dictionary with keys dX,
-        X_ito, X_strat and dt. For each time point the arrays dX,
-        X_ito and X_strat must have the same dimensions.
+        done before, and that data is a dictionary with keys dX_plus,
+        dX_minus, X_ito, X_strat and dt. For each time point the
+        arrays dX, X_ito and X_strat must have the same dimensions.
+
+        dX_plus  = X(t+dt)-X(t)
+        dX_minus = X(t)-X(t-dt)
 
         """
         if data_type == 'homogeneous':
@@ -32,10 +35,10 @@ class StochasticTrajectoryData(object):
             self.dt = t[2:] - t[1:-1] 
 
             self.X_ito = 1. * data[1:-1] 
-            self.dX = data[2:] - data[1:-1]
-            self.dX_pre = data[1:-1] - data[:-2]
-            self.X_strat = self.X_ito + 0.5 * self.dX
-            self.Xdot = np.einsum('tmi,t->tmi',self.dX, 1. /self.dt)
+            self.dX_plus = data[2:] - data[1:-1]
+            self.dX_minus = data[1:-1] - data[:-2]
+            self.X_strat = self.X_ito + 0.5 * self.dX_plus
+            self.Xdot = np.einsum('tmi,t->tmi',self.dX_plus, 1. /self.dt)
             self.Nparticles = [ X.shape[0] for X in self.X_strat ] 
             # Total time-per-particle in the trajectory
             self.tauN = np.einsum('t,t->',self.dt,self.Nparticles)
@@ -44,14 +47,14 @@ class StochasticTrajectoryData(object):
         elif data_type == 'heterogeneous':
             self.t = t
             self.X_ito = data['X_ito']
-            self.dX = data['dX']
-            self.dX_pre = data['dX_pre']
+            self.dX_plus  = data['dX_plus']
+            self.dX_minus = data['dX_minus']
             self.dt = data['dt']
-            self.X_strat = [ self.X_ito[t] + 0.5 * self.dX[t] for t,dt in enumerate(self.dt) ]
+            self.X_strat = [ self.X_ito[t] + 0.5 * self.dX_plus[t] for t,dt in enumerate(self.dt) ]
             self.d = self.X_ito[0].shape[1]
             self.Nparticles = [ X.shape[0] for X in self.X_strat ] 
             self.tauN = np.einsum('t,t->',self.dt,self.Nparticles)
-            self.Xdot = [  self.dX[t] / dt for t,dt in enumerate(self.dt) ]
+            self.Xdot = [  self.dX_plus[t] / dt for t,dt in enumerate(self.dt) ]
             
         else:
             raise KeyError("Wrong data_type")
@@ -73,9 +76,12 @@ class StochasticTrajectoryData(object):
         elif integration_style=='Ito':
             X = self.X_ito
             dt = self.dt
-        elif integration_style=='StratonovichTruncated':
-            X = self.X_strat[1:-1]
-            dt = self.dt[1:-1]
+        elif integration_style=='smooth':
+            X = [ self.X_ito[t] + (self.dX_plus[t]-self.dX_minus[t])/3. for t,dt in enumerate(self.dt) ]
+            dt = self.dt
+        elif integration_style=='Isothermal': # aka Hanggi or anti-Ito
+            X = [ self.X_ito[t] + self.dX_plus[t] for t,dt in enumerate(self.dt) ]
+            dt = self.dt
         else:
             raise KeyError("Wrong integration_style keyword.")
         func = lambda t : np.einsum('im,in->mn', f(X[t]) if callable(f) else f[t] , g(X[t]) if callable(g) else g[t] )
@@ -94,7 +100,7 @@ class StochasticTrajectoryData(object):
         return result / self.tauN
 
     
-    def plot_process(self,dir1=None,dir2=None,shift=(0,0),tmin=None,tmax=None, cmap = 'viridis',particle=0,**kwargs):
+    def plot_process(self,dir1=None,dir2=None,shift=(0,0),tmin=None,tmax=None, particle=0,dx_pre_too=False,**kwargs):
         """Basic 2D plotting of the trajectory. The color gradient indicates
         time. dir1 and dir2 arguments, if specified, should be two
         orthogonal unit vectors, defining the projection plane of the
@@ -107,7 +113,14 @@ class StochasticTrajectoryData(object):
             dir2 = axisvector(1,self.d)
         x = np.array([ dir1.dot(u[particle,:]) for u in self.X_ito[tmin:tmax] ])
         y = np.array([ dir2.dot(u[particle,:]) for u in self.X_ito[tmin:tmax] ])
-        plt.quiver(x[:-1]+shift[0],y[:-1]+shift[1],x[1:]-x[:-1],y[1:]-y[:-1],self.t[tmin:tmax][:-1] ,cmap=cmap,
+        dx = np.array([ dir1.dot(u[particle,:]) for u in self.dX_plus[tmin:tmax] ])
+        dy = np.array([ dir2.dot(u[particle,:]) for u in self.dX_plus[tmin:tmax] ])
+        plt.quiver(x+shift[0],y+shift[1],dx,dy,self.t[tmin:tmax],
+                   headaxislength = 0.0,headwidth = 0., headlength = 0.0, minlength=0., minshaft = 0.,  scale = 1.0,units = 'xy',lw=0.,**kwargs)
+        if dx_pre_too:
+            dxp = np.array([ dir1.dot(u[particle,:]) for u in self.dX_minus[tmin:tmax] ])
+            dyp = np.array([ dir2.dot(u[particle,:]) for u in self.dX_minus[tmin:tmax] ])
+            plt.quiver(x+shift[0],y+shift[1],-dxp,-dyp,self.t[tmin:tmax][:-1] ,
                    headaxislength = 0.0,headwidth = 0., headlength = 0.0, minlength=0., minshaft = 0.,  scale = 1.0,units = 'xy',lw=0.,**kwargs)
         plt.axis('equal') 
         plt.xticks([])
@@ -149,7 +162,6 @@ class StochasticTrajectoryData(object):
 
         if autoscale:
             scale /= max(np.array(vX)**2 + np.array(vY)**2)**0.5
-            print("Vector field scale:",scale)
         plt.quiver(gridX,gridY,scale*np.array(vX),scale*np.array(vY) ,scale = 1.0,units = 'xy',color = color,minlength=0.,**kwargs)
         plt.ylim(-radius+dir2.dot(center),radius+dir2.dot(center))
         plt.xlim(-radius+dir1.dot(center),radius+dir1.dot(center))
@@ -184,7 +196,6 @@ class StochasticTrajectoryData(object):
 
         if autoscale:
             scale /= max(np.array(U)**2 + np.array(V)**2)**0.5
-            print("Tensor field scale:",scale)
 
         X,Y =  np.array(X),np.array(Y)
         dX,dY = 0.5*scale*np.array(U),0.5*scale*np.array(V)
@@ -258,7 +269,7 @@ class StochasticTrajectoryData(object):
 
         if autoscale:
             scale /= max(np.array(vX)**2 + np.array(vY)**2 + np.array(vZ)**2)**0.5
-            print("Vector field scale:",scale)
+            #print("Vector field scale:",scale)
         
         mayavi.mlab.quiver3d(gridX,gridY,gridZ,scale*np.array(vX),scale*np.array(vY),scale*np.array(vZ),scalars=0.*np.array(vZ)+cval,vmin=0.,vmax=1.,colormap=cmap,mode='arrow', scale_factor = 2.,scale_mode = 'vector', resolution = 8 )
 

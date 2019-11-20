@@ -7,6 +7,5 @@ the namespace.
 
 from SFI_langevin import OverdampedLangevinProcess
 from SFI_data import StochasticTrajectoryData
-from SFI_diffusion import DiffusionInference
-from SFI_forces import StochasticForceInference
+from SFI_inference import StochasticForceInference
 import SFI_plotting_toolkit 
