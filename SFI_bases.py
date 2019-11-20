@@ -21,12 +21,12 @@ def basis_selector(basis,data):
         is_interacting = True
         if basis['type'] == 'particles_pair_interaction': 
             funcs = particles_pair_interaction(data.d,basis['kernels'])
+        if basis['type'] == 'particles_pair_interaction_periodic': 
+            funcs = particles_pair_interaction_periodic(data.d,basis['kernels'],basis['box'])
         elif basis['type'] == 'particles_pair_interaction_scalar': 
             funcs = particles_pair_interaction_scalar(basis['kernels'])
         elif basis['type'] == 'particles_and_polynomial': 
             funcs = particles_polynomial_composite_basis(data.d,basis['order'],basis['kernels'])
-        elif basis['type'] == 'particles_and_polynomial_scalar': 
-            funcs = particles_polynomial_scalar_composite_basis(data.d,basis['order'],basis['kernels'])
         elif basis['type'] == 'self_propelled_particles': 
             funcs = self_propelled_particles_basis(basis['order'],basis['kernels'])
         elif basis['type'] == 'single_self_propelled_particle': 
@@ -174,6 +174,22 @@ def particles_pair_interaction(dim,kernels):
         return np.einsum('fij,ijm->ifm',f_Rij,Xij).reshape((Nparticles,dim * len(kernels)))
     return pair_function_spherical
 
+def particles_pair_interaction_periodic(dim,kernels,box):
+    # Radially symmetric vector-like pair interactions as a sum of
+    # kernels.  Two-particle functions are chosen to be of the form
+    # f(R_ij) * (Xj - Xi)/Rij for a given set of functions f
+    # (kernels).
+    def pair_function_spherical(X):
+        # X is a Nparticles x dim - shaped array.
+        Nparticles = X.shape[0]
+        Xij = np.array([[[ (xij+box[d]/2)%box[d]-box[d]/2 for d,xij in enumerate(Xj - Xi)] for j,Xj in enumerate(X) ] for i,Xi in enumerate(X) ])
+        Rij = np.linalg.norm(Xij,axis=2)
+        f_Rij = np.nan_to_num(np.array([ f(Rij)/Rij for f in kernels ]))
+        # Combine the kernel index f and the spatial index m into a
+        # single function index a:
+        return np.einsum('fij,ijm->ifm',f_Rij,Xij).reshape((Nparticles,dim * len(kernels)))
+    return pair_function_spherical
+
 
 def particles_pair_interaction_scalar(kernels):
     # Radially symmetric scalar-like pair interactions as a sum of
@@ -201,14 +217,6 @@ def particles_polynomial_composite_basis(dim,order_single,kernels):
     pair = particles_pair_interaction(dim,kernels)
     return lambda X :  np.array([ v for v in poly(X).T ]+[ v for v in pair(X).T ]).T
 
-
-def particles_polynomial_scalar_composite_basis(dim,order_single,kernels):
-    # A composite basis: single-particle forces as polynomials
-    # (external field), and radially symmetric pair interactions as a
-    # sum of kernels.
-    poly = polynomial_basis(dim,order_single)
-    pair = particles_pair_interaction_scalar(kernels)
-    return lambda X :  np.array([ v for v in poly(X).T ]+[ v for v in pair(X).T ]).T
 
 
 def self_propelled_particles_basis(order_single,kernels):
