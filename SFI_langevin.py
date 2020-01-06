@@ -15,12 +15,15 @@ class OverdampedLangevinProcess(object):
     dX/dt = F(X) + div D + \sqrt{2 D} xi
 
     where xi is gaussian white noise, and D is taken at time t (Ito
-    convention).
+    convention), if 'mode' is force; and:
+
+    dX/dt = F(X) + \sqrt{2 D} xi
+ 
+    if 'mode' is drift or the diffusion is constant.
 
     If div D is provided as a lambda function, it will be used;
     otherwise this "spurious force" will be computed through finite
-    differences. It can also be bypassed if D is constant using the
-    argument D_is_constant.
+    differences. 
 
     The resulting simulated data is a 3D array:
     - 1st index is time index
@@ -41,11 +44,13 @@ class OverdampedLangevinProcess(object):
 
     """
     
-    def __init__(self, F, D, tlist, initial_position, oversampling = 1, prerun = 0, divD = None, D_is_constant = True):
+    def __init__(self, F, D, tlist, initial_position, oversampling = 1, prerun = 0, divD = None, D_is_constant = True, mode = "drift"):
         self.F = F
         self.Nparticles,self.d = initial_position.shape
+        self.mode = 'mode'
 
-        if D_is_constant:
+        if hasattr(D,'shape'):
+            # Constant D.
             Dc = 1.*D
             if Dc.shape == (self.d,self.d):
                 Dc = np.array([ Dc for i in range(self.Nparticles)])
@@ -55,29 +60,31 @@ class OverdampedLangevinProcess(object):
             self.D = lambda X : self.__D__
             self.__sqrt2D__ = np.array([ sqrtm(2 * self.__D__[i,:,:]) for i in range(self.Nparticles) ])
             self.sqrt2D = lambda X : self.__sqrt2D__
-            self.divD = lambda X : np.zeros((self.Nparticles,self.d))
+            self.mode = 'drift'
         else:
             self.D = D
             if self.d >= 2:
                 def sqrt2D(X):
                     D = self.D(X)
-                    return np.array([ sqrtm(2 * D[i,:,:]) for i in range(self.Nparticles) ])
+                    return np.array([ np.real(sqrtm(2 * D[i,:,:])) for i in range(self.Nparticles) ])
             else:
                 def sqrt2D(X):
                     return (2*self.D(X))**0.5
             self.sqrt2D = sqrt2D
-                
-            if divD is None:
-                epsilon = 1e-6
-                self.__dx__ = [[ np.array([[ 0 if (i,m)!= (ind,mu) else epsilon for m in range(self.d)] for i in range(self.Nparticles) ] )\
-                                  for mu in range(self.d) ] for ind in range(self.Nparticles) ] 
-                def divD(x):
-                    return np.einsum('jmimn->in',  np.array([[ (self.D(x+self.__dx__[ind][mu]) - self.D(x-self.__dx__[ind][mu]))/(2*epsilon) \
-                                                               for mu in range(self.d)] for ind in range(self.Nparticles) ]))
-                self.divD = divD
-                
-            else:
-                self.divD = divD
+
+
+            if self.mode == 'force':
+                if divD is None:
+                    epsilon = 1e-6
+                    self.__dx__ = [[ np.array([[ 0 if (i,m)!= (ind,mu) else epsilon for m in range(self.d)] for i in range(self.Nparticles) ] )\
+                                      for mu in range(self.d) ] for ind in range(self.Nparticles) ] 
+                    def divD(x):
+                        return np.einsum('jmimn->in',  np.array([[ (self.D(x+self.__dx__[ind][mu]) - self.D(x-self.__dx__[ind][mu]))/(2*epsilon) \
+                                                                   for mu in range(self.d)] for ind in range(self.Nparticles) ]))
+                    self.divD = divD
+
+                else:
+                    self.divD = divD 
                 
         self.t = tlist
 
@@ -89,7 +96,10 @@ class OverdampedLangevinProcess(object):
 
     def dx(self,state,dt):
         """ The position increment in time dt."""
-        return dt * self.F(state)  +  dt * self.divD(state)  +  np.einsum('imn,in->im',self.sqrt2D(state), np.random.normal(size=(self.Nparticles,self.d)) ) * dt**0.5 
+        if self.mode == 'force':
+            return dt * self.F(state)  +  dt * self.divD(state)  +  np.einsum('imn,in->im',self.sqrt2D(state), np.random.normal(size=(self.Nparticles,self.d)) ) * dt**0.5  
+        else:
+            return dt * self.F(state)  +  np.einsum('imn,in->im',self.sqrt2D(state), np.random.normal(size=(self.Nparticles,self.d)) ) * dt**0.5 
         
     def simulate(self,initial_position,oversampling,prerun):
         state = 1. * initial_position

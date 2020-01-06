@@ -32,16 +32,11 @@ SFI_data.py: contains a data wrapper class, StochasticTrajectoryData,
    fields, tensor fields...). See this file for the different ways to
    initialize it using data.
 
-SFI_diffusion.py: implements the core diffusion inference class,
-   DiffusionInference, that reconstructs the diffusion tensor
-   field. Takes as input a StochasticTrajectoryData instance, and
-   inference parameters.
-
-SFI_forces.py: implements the core force inference class,
-   StochasticForceInference, that reconstructs the force field.  Takes
-   as input a StochasticTrajectoryData instance, inference parameters,
-   and diffusion parameters (either a constant, a space-dependent
-   function, or directly a DiffusionInference instance).
+SFI_inference.py: implements the core force, velocity and diffusion
+   inference class, StochasticForceInference, that reconstructs the
+   these fields, computes error on this reconstruction, and computes
+   entropy production.  Takes as input a StochasticTrajectoryData
+   instance, and inference parameters.
 
 SFI_langevin.py: contains the class OverdampedLangevinProcess, which
    implements a simple Ito integration of Brownian dynamics, useful
@@ -63,8 +58,11 @@ SFI_bases.py: provides an internal dictionary of (more or less)
 SFI_plotting_toolkit.py: a few plotting functions for the convenience
    of the author.
 
-SFI_demo.py: a fully commented example of force and diffusion
+SFI_demo_Lorenz.py: a fully commented example of force and diffusion
    inference on the example of a simple 3D process. Start here!
+   
+SFI_demo_particles.py: a more advanced example: active Brownian
+   particles. Shows how to extract the pair interaction force.	       
    
 -----------------------------------------------------------------------
 
