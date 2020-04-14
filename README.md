@@ -5,7 +5,7 @@ spatially variable force, diffusion and current fields and computing
 entropy production in Brownian processes. It implements the method
 presented in SFI_TheoryManual.pdf. 
 
-####Reference:
+###Reference:
 **Learning Force Fields from Stochastic Trajectories**, Anna Frishman and Pierre Ronceray, 
 Phys. Rev. X 10, 021009, 2020.
 
@@ -19,7 +19,7 @@ This is a force and diffusion inference package for  **overdamped** systems. For
 
 Developed in Python 3.6.
 
-####Dependencies:
+###Dependencies:
 
 - NumPy, SciPy
 
@@ -28,7 +28,7 @@ Developed in Python 3.6.
 
 -----------------------------------------------------------------------
 
-####Contents:
+###Contents:
 
 **StochasticForceInference.py**: a front-end includer of all classes
    useful to the user.
