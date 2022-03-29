@@ -8,7 +8,7 @@ presented in SFI_TheoryManual.pdf. Reference:
 **Learning Force Fields from Stochastic Trajectories**, Anna Frishman and Pierre Ronceray, 
 Phys. Rev. X 10, 021009, 2020.
 
-Package author: Pierre Ronceray. Contact: pierre.ronceray@outlook.com. Web page: www.pierre-ronceray.net.
+Package author: Pierre Ronceray. Contact: pierre.ronceray@univ-amu.fr. Web page: www.pierre-ronceray.net.
 
 -----------------------------------------------------------------------
 
