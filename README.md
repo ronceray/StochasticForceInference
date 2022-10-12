@@ -71,7 +71,7 @@ Developed in Python 3.6. Dependencies:
 -----------------------------------------------------------------------
 
 
-Enjoy, and please send feedback at pierre.ronceray@outlook.com !
+Enjoy, and please send feedback at pierre.ronceray@univ-amu.fr!
 
        	   	       				     PR
 						
