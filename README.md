@@ -1,5 +1,9 @@
 # StochasticForceInference	
 
+---
+The current version is badly outdated. We are in the process of deploying a new version (available upon email request, coming soon on GitHub).
+---
+
 StochasticForceInference is a package aimed at reconstructing
 spatially variable force, diffusion and current fields and computing
 entropy production in Brownian processes. It implements the method
