@@ -1,0 +1,9 @@
+# Include all Python files from example folders
+recursive-include OLI_examples *.py
+recursive-include ULI_examples *.py
+
+# Exclude common junk files
+global-exclude *.csv *.mp4 *.pkl *.npz *.npy *~ *.bak
+global-exclude __pycache__/
+global-exclude .DS_Store
+

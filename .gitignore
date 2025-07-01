@@ -1,0 +1,25 @@
+# Ignore data/output
+*.csv
+*.mp4
+*.npy
+*.npz
+*.pkl
+*.pdf
+*~
+*.bak
+
+# Ignore Jupyter metadata
+.ipynb_checkpoints/
+__pycache__/
+*.log
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+
+# Optional: ignore local config or editors
+.vscode/
+.env/
+.venv/
+

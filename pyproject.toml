@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SFI"
+version = "1.9.5"
+description = "Stochastic Force Inference for Langevin SDEs"
+authors = [{name = "Pierre Ronceray", email = "pierre.ronceray@univ-amu.fr"}]
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+
+dependencies = [
+  "numpy",
+  "scipy",
+  "jax>=0.6",
+  "jaxlib",
+  "pandas",
+  "matplotlib",
+  "pyyaml"
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy", "pre-commit"]
+
+[project.urls]
+Homepage = "https://github.com/ronceray/StochasticForceInference"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["SFI*"]
+
