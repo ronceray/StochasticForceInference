@@ -76,24 +76,21 @@ The **PASTIS** criterion maximises a *quasi‑likelihood-based information crite
 ## Quick start
 
 ```python
-import SFI
-from jax import random
-
-# Load trajectories from CSV (header + coordinates)
-meta, particle_idx, time_idx, xvals = SFI.SFI_utils.load_trajectory_csv("trajectory.csv")
-
-# Package data (handles breaks / missing frames automatically)
-data = SFI.StochasticDataectoryData(xvals, time_idx, meta["dt"],
+# Load a 'trajectory.csv' file
+meta, particle_idx, time_idx, xvals = SFI.SFI_utils.load_trajectory_csv("path/to/trajectory.csv")
+data = SFI.StochasticTrajectoryData(xvals, time_idx, meta["dt"],
                                     particle_indices=particle_idx)
 
 # Choose inference engine (OLI here)
 S = SFI.OverdampedLangevinInference(data)
 
 # Diffusion then force
-S.compute_diffusion_constant()
+S.compute_diffusion_constant(method="MSD")
 
-basis_F, grad_F = SFI.OLI_bases.basis_selector(
+# Get basis functions and descriptors
+(basis_F, grad_F), descriptor = SFI.OLI_bases.basis_selector(
         {"type": "polynomial", "order": 3}, data.d, output="vector")
+
 S.infer_force_linear(basis_linear=basis_F,
                       basis_linear_gradient=grad_F)
 		    
