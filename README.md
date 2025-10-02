@@ -1,7 +1,7 @@
 # StochasticForceInference	
 
 ---
-The current version is badly outdated. We are in the process of deploying a new version (available upon email request, coming soon on GitHub).
+This is the legacy version accompanying the 2020 PRX paper, only left for archival purpose. A much improved version is available at https://github.com/ronceray/StochasticForceInference. 
 ---
 
 StochasticForceInference is a package aimed at reconstructing
