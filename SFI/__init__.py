@@ -2,7 +2,7 @@
 SFI – Stochastic Force Inference - main entry point
 """
 
-from importlib.metadata import version as _v
+from importlib.metadata import version as _v, PackageNotFoundError
 
 # Public API --------------------------------------------------------------
 from .SFI_data import StochasticTrajectoryData
