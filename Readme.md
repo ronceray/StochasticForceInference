@@ -1,5 +1,9 @@
 # SFI – Stochastic Force Inference
 
+## IMPORTANT: version 2.0, a complete overhaul of the method with vastly improved capabilities, documentation and performance, will be released on *Jun 15, 2026*. Early access is possible on request: write to me at pierre.ronceray@univ-amu.fr.
+
+# Current version
+
 *Efficient, low‑bias force & diffusion estimation from Langevin time series*
 
 > **Version 1.9.x – public beta**  *(API stabilised but not yet frozen; v2 features already under active testing)*
