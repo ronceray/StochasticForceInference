@@ -1,0 +1,3884 @@
+{
+ "BASIS": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.basis",
+   "module_short": "SFI",
+   "name": "Basis"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI",
+   "name": "Basis"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "Basis"
+  }
+ ],
+ "DIM": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "DT": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "DU": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "DV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "DX": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "FK_inf_v": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "FK_true_v": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "F_gs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "F_inf_v": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "F_true_v": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "Fr": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "GRID": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "tuple"
+  }
+ ],
+ "GridLayout": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._grid",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "GridLayout"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "GridLayout"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._base",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "_BaseLayout"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "_BaseLayout"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout"
+  }
+ ],
+ "K_gs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "Kr": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "Nx": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "Ny": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "ONE": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "OVERS": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "OverdampedLangevinInference": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  }
+ ],
+ "OverdampedProcess": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  }
+ ],
+ "PRERUN": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "Path": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "pathlib",
+   "module_short": "pathlib",
+   "name": "Path"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "pathlib",
+   "module_short": "pathlib",
+   "name": "PurePath"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pathlib",
+   "module_short": "pathlib",
+   "name": "Path"
+  }
+ ],
+ "SEED": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "SFI.bases.spde.conserved_noise_pbc": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "SFI.bases.spde",
+   "module_short": "SFI.bases.spde",
+   "name": "conserved_noise_pbc"
+  }
+ ],
+ "SFI.statefunc.Basis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "SFI.statefunc",
+   "module_short": "SFI",
+   "name": "Basis"
+  }
+ ],
+ "SFI.statefunc.layout.GridLayout": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout"
+  }
+ ],
+ "SFI.statefunc.structexpr.StructuredExpr.with_label": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "SFI.statefunc.structexpr.StructuredExpr",
+   "module_short": "SFI.statefunc.structexpr.StructuredExpr",
+   "name": "with_label"
+  }
+ ],
+ "SFI_COLORS": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "dict"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "_gallery_utils.helpers",
+   "module_short": "_gallery_utils.helpers",
+   "name": "SFI_COLORS"
+  }
+ ],
+ "SIGMA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "STEPS": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "ScalarSector": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._sectors",
+   "module_short": "SFI.statefunc.layout",
+   "name": "ScalarSector"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "ScalarSector"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "ScalarSector"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "ScalarSector"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "ScalarSector"
+  }
+ ],
+ "T_frames": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "T_total": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "U": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "U0": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "U0.at": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl.at"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl.at"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.jaxlib._jax",
+   "module_short": "jax.jaxlib._jax",
+   "name": "Array.at"
+  }
+ ],
+ "U0.dtype": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl.dtype"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl.dtype"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.jaxlib._jax",
+   "module_short": "jax.jaxlib._jax",
+   "name": "Array.dtype"
+  }
+ ],
+ "U0.shape": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.jaxlib._jax",
+   "module_short": "jax.jaxlib._jax",
+   "name": "Array.shape"
+  }
+ ],
+ "V": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "V0": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "V0.at": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl.at"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl.at"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.jaxlib._jax",
+   "module_short": "jax.jaxlib._jax",
+   "name": "Array.at"
+  }
+ ],
+ "V0.dtype": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl.dtype"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl.dtype"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.jaxlib._jax",
+   "module_short": "jax.jaxlib._jax",
+   "name": "Array.dtype"
+  }
+ ],
+ "V0.shape": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.jaxlib._jax",
+   "module_short": "jax.jaxlib._jax",
+   "name": "Array.shape"
+  }
+ ],
+ "X0": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "X0_boot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "_": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "_boot_ok": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "bool"
+  }
+ ],
+ "_boot_try": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "_coeff": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  }
+ ],
+ "_seed_ic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  }
+ ],
+ "_true_theta": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  }
+ ],
+ "anim_gs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.animation",
+   "module_short": "matplotlib.animation",
+   "name": "FuncAnimation"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "FuncAnimation"
+  }
+ ],
+ "animate_spde_comparison": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.utils.plotting",
+   "module_short": "SFI.utils.plotting",
+   "name": "animate_spde_comparison"
+  }
+ ],
+ "apply_style": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "_gallery_utils.helpers",
+   "module_short": "_gallery_utils.helpers",
+   "name": "apply_style"
+  }
+ ],
+ "auto_labels": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "axes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "box_extras": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "dict"
+  }
+ ],
+ "co_s": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "coeffs_sel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "coeffs_true": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "coll": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory.collection",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  }
+ ],
+ "coll.T": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "coll.X": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "coll_boot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory.collection",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  }
+ ],
+ "coll_boot.T": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "coll_deg": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory.collection",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  }
+ ],
+ "coll_deg.extras_global": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "dict"
+  }
+ ],
+ "coll_r": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory.collection",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  }
+ ],
+ "coll_rd": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory.collection",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "TrajectoryCollection"
+  }
+ ],
+ "coll_rd.extras_global": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "dict"
+  }
+ ],
+ "conserved_noise_pbc": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.bases.spde",
+   "module_short": "SFI.bases.spde",
+   "name": "conserved_noise_pbc"
+  }
+ ],
+ "const_idx": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "const_labels": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "const_true": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "cx": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "cy": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "degrade_spatial_data": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.trajectory.degrade",
+   "module_short": "SFI.trajectory.degrade",
+   "name": "degrade_spatial_data"
+  }
+ ],
+ "elapsed": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "fig": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.figure",
+   "module_short": "matplotlib.figure",
+   "name": "Figure"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "Figure"
+  }
+ ],
+ "fig.colorbar": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.figure",
+   "module_short": "matplotlib.figure",
+   "name": "Figure.colorbar"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "Figure.colorbar"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.figure",
+   "module_short": "matplotlib.figure",
+   "name": "FigureBase.colorbar"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "FigureBase.colorbar"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.artist",
+   "module_short": "matplotlib.artist",
+   "name": "Artist.colorbar"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "Artist.colorbar"
+  }
+ ],
+ "fig.suptitle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.figure",
+   "module_short": "matplotlib.figure",
+   "name": "Figure.suptitle"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "Figure.suptitle"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.figure",
+   "module_short": "matplotlib.figure",
+   "name": "FigureBase.suptitle"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "FigureBase.suptitle"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.artist",
+   "module_short": "matplotlib.artist",
+   "name": "Artist.suptitle"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "Artist.suptitle"
+  }
+ ],
+ "gU": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "gU.dot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr.dot"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr.dot"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr.dot"
+  }
+ ],
+ "gV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "gV.dot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr.dot"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr.dot"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr.dot"
+  }
+ ],
+ "generic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "generic.labels": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "tuple"
+  }
+ ],
+ "inf": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  }
+ ],
+ "inf.compare_to_exact": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compare_to_exact"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compare_to_exact"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compare_to_exact"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.compare_to_exact"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.compare_to_exact"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.compare_to_exact"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.compare_to_exact"
+  }
+ ],
+ "inf.compute_diffusion_constant": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.compute_diffusion_constant"
+  }
+ ],
+ "inf.compute_force_error": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.compute_force_error"
+  }
+ ],
+ "inf.force_sparsity_result": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.sparse.result",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.sparse",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "SparsityResult"
+  }
+ ],
+ "inf.force_sparsity_result.select_by_ic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.sparse.result",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult.select_by_ic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.sparse",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult.select_by_ic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult.select_by_ic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "SparsityResult.select_by_ic"
+  }
+ ],
+ "inf.infer_force_linear": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.infer_force_linear"
+  }
+ ],
+ "inf.print_report": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.print_report"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.print_report"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.print_report"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.print_report"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.print_report"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.print_report"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.print_report"
+  }
+ ],
+ "inf.simulate_bootstrapped_trajectory": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.simulate_bootstrapped_trajectory"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.simulate_bootstrapped_trajectory"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.simulate_bootstrapped_trajectory"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.simulate_bootstrapped_trajectory"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.simulate_bootstrapped_trajectory"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.simulate_bootstrapped_trajectory"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.simulate_bootstrapped_trajectory"
+  }
+ ],
+ "inf.sparsify_force": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.sparsify_force"
+  }
+ ],
+ "inf_r": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference"
+  }
+ ],
+ "inf_r.compute_diffusion_constant": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.compute_diffusion_constant"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.compute_diffusion_constant"
+  }
+ ],
+ "inf_r.compute_force_error": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.compute_force_error"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.compute_force_error"
+  }
+ ],
+ "inf_r.force_sparsity_result.select_by_ic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.sparse.result",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult.select_by_ic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.sparse",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult.select_by_ic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "SparsityResult.select_by_ic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "SparsityResult.select_by_ic"
+  }
+ ],
+ "inf_r.infer_force_linear": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.infer_force_linear"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.infer_force_linear"
+  }
+ ],
+ "inf_r.sparsify_force": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.overdamped",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference.base",
+   "module_short": "SFI.inference.base",
+   "name": "BaseLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.inference",
+   "module_short": "SFI.inference",
+   "name": "BaseLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "BaseLangevinInference.sparsify_force"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "abc",
+   "module_short": "abc",
+   "name": "ABC.sparsify_force"
+  }
+ ],
+ "j": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "jnp.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.numpy",
+   "module_short": "jax.numpy",
+   "name": "array"
+  }
+ ],
+ "jnp.float32": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "jax.numpy",
+   "module_short": "jax.numpy",
+   "name": "float32"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "jax",
+   "module_short": "jax",
+   "name": "float32"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.numpy",
+   "module_short": "jax.numpy",
+   "name": "float32"
+  }
+ ],
+ "jnp.ones": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.numpy",
+   "module_short": "jax.numpy",
+   "name": "ones"
+  }
+ ],
+ "jnp.stack": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.numpy",
+   "module_short": "jax.numpy",
+   "name": "stack"
+  }
+ ],
+ "jnp.zeros": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.numpy",
+   "module_short": "jax.numpy",
+   "name": "zeros"
+  }
+ ],
+ "k_sel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "key": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "ks": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "labels": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "layout": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._grid",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "GridLayout"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "GridLayout"
+  }
+ ],
+ "layout.U": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "layout.V": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "layout.biharmonic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._grid",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.biharmonic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.biharmonic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "GridLayout.biharmonic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "GridLayout.biharmonic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._base",
+   "module_short": "SFI.statefunc.layout._base",
+   "name": "_BaseLayout.biharmonic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout.biharmonic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "_BaseLayout.biharmonic"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "_BaseLayout.biharmonic"
+  }
+ ],
+ "layout.const": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._grid",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.const"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.const"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "GridLayout.const"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "GridLayout.const"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._base",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout.const"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout.const"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "_BaseLayout.const"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "_BaseLayout.const"
+  }
+ ],
+ "layout.embed": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._grid",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.embed"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.embed"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "GridLayout.embed"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "GridLayout.embed"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._base",
+   "module_short": "SFI.statefunc.layout._base",
+   "name": "_BaseLayout.embed"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout.embed"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "_BaseLayout.embed"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "_BaseLayout.embed"
+  }
+ ],
+ "layout.grad": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._grid",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.grad"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.grad"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "GridLayout.grad"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "GridLayout.grad"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._base",
+   "module_short": "SFI.statefunc.layout._base",
+   "name": "_BaseLayout.grad"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout.grad"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "_BaseLayout.grad"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "_BaseLayout.grad"
+  }
+ ],
+ "layout.lap": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._grid",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.lap"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "GridLayout.lap"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "GridLayout.lap"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "GridLayout.lap"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout._base",
+   "module_short": "SFI.statefunc.layout._base",
+   "name": "_BaseLayout.lap"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.layout",
+   "module_short": "SFI.statefunc.layout",
+   "name": "_BaseLayout.lap"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "_BaseLayout.lap"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "_BaseLayout.lap"
+  }
+ ],
+ "model_summary": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.utils.formatting",
+   "module_short": "SFI.utils",
+   "name": "model_summary"
+  }
+ ],
+ "n_feat": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "n_per": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "names": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "noise": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.noise",
+   "module_short": "SFI.langevin",
+   "name": "ConservedNoise"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "ConservedNoise"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "ConservedNoise"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.nonzero": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "_ArrayFunctionDispatcher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "nonzero"
+  }
+ ],
+ "np.zeros": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "zeros"
+  }
+ ],
+ "os.environ.setdefault": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "os",
+   "module_short": "os",
+   "name": "_Environ.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections.abc",
+   "module_short": "collections.abc",
+   "name": "MutableMapping.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "MutableMapping.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections.abc",
+   "module_short": "collections.abc",
+   "name": "Mapping.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "Mapping.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections.abc",
+   "module_short": "collections.abc",
+   "name": "Collection.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "Collection.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections.abc",
+   "module_short": "collections.abc",
+   "name": "Sized.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "Sized.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections.abc",
+   "module_short": "collections.abc",
+   "name": "Iterable.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "Iterable.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections.abc",
+   "module_short": "collections.abc",
+   "name": "Container.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "Container.setdefault"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "os.environ",
+   "module_short": "os.environ",
+   "name": "setdefault"
+  }
+ ],
+ "plot_pareto_front": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.utils.plotting",
+   "module_short": "SFI.utils.plotting",
+   "name": "plot_pareto_front"
+  }
+ ],
+ "plot_recovery_bar": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.utils.plotting",
+   "module_short": "SFI.utils.plotting",
+   "name": "plot_recovery_bar"
+  }
+ ],
+ "plot_recovery_bar_multi": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.utils.plotting",
+   "module_short": "SFI.utils.plotting",
+   "name": "plot_recovery_bar_multi"
+  }
+ ],
+ "plot_spde_snapshot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.utils.plotting",
+   "module_short": "SFI.utils.plotting",
+   "name": "plot_spde_snapshot"
+  }
+ ],
+ "plt.gcf": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "gcf"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "proc": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess"
+  }
+ ],
+ "proc.initialize": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.initialize"
+  }
+ ],
+ "proc.set_extras": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.set_extras"
+  }
+ ],
+ "proc.set_params": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.set_params"
+  }
+ ],
+ "proc.simulate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.simulate"
+  }
+ ],
+ "proc_boot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess"
+  }
+ ],
+ "proc_boot.initialize": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.initialize"
+  }
+ ],
+ "proc_boot.set_extras": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.set_extras"
+  }
+ ],
+ "proc_boot.simulate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.simulate"
+  }
+ ],
+ "proc_r": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess"
+  }
+ ],
+ "proc_r.initialize": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.initialize"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.initialize"
+  }
+ ],
+ "proc_r.set_extras": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.set_extras"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.set_extras"
+  }
+ ],
+ "proc_r.set_params": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.set_params"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.set_params"
+  }
+ ],
+ "proc_r.simulate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.overdamped",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "OverdampedProcess.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin.base",
+   "module_short": "SFI.langevin.base",
+   "name": "LangevinBase.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.langevin",
+   "module_short": "SFI.langevin",
+   "name": "LangevinBase.simulate"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "LangevinBase.simulate"
+  }
+ ],
+ "purge_cache_extras": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.nodes.interactions.prepare",
+   "module_short": "SFI.statefunc.nodes.interactions.prepare",
+   "name": "purge_cache_extras"
+  }
+ ],
+ "r": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "random.PRNGKey": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.random",
+   "module_short": "jax.random",
+   "name": "PRNGKey"
+  }
+ ],
+ "random.normal": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.random",
+   "module_short": "jax.random",
+   "name": "normal"
+  }
+ ],
+ "random.split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jax.random",
+   "module_short": "jax.random",
+   "name": "split"
+  }
+ ],
+ "regime_results": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "dict"
+  }
+ ],
+ "regimes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "ri": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "rname": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "str"
+  }
+ ],
+ "skip_gs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "snapshots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "square_grid_extras": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.bases.spde",
+   "module_short": "SFI.bases.spde",
+   "name": "square_grid_extras"
+  }
+ ],
+ "stamp_output": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "_gallery_utils.helpers",
+   "module_short": "_gallery_utils.helpers",
+   "name": "stamp_output"
+  }
+ ],
+ "sub": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "sub_ic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "sup_s": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "support_sel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "support_true": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "sys.path.insert": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sys.path",
+   "module_short": "sys.path",
+   "name": "insert"
+  }
+ ],
+ "t": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc.structexpr",
+   "module_short": "SFI.statefunc.structexpr",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI.statefunc",
+   "module_short": "SFI.statefunc",
+   "name": "StructuredExpr"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "SFI",
+   "module_short": "SFI",
+   "name": "StructuredExpr"
+  }
+ ],
+ "t0": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "t_phys": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "terms": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "theta_dense": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "theta_sim": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib._jax",
+   "module_short": "jaxlib._jax",
+   "name": "ArrayImpl"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "jaxlib",
+   "module_short": "jaxlib",
+   "name": "ArrayImpl"
+  }
+ ],
+ "ti": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "ti_final": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "time.perf_counter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "perf_counter"
+  }
+ ],
+ "w2": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "xr": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ]
+}
