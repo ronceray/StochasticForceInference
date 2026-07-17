@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320">
+  <style>
+    .title { font-family: 'Source Sans Pro', sans-serif; font-size: 15px; font-weight: 600; fill: #333; text-anchor: middle; }
+    .subtitle { font-family: 'Source Sans Pro', sans-serif; font-size: 11px; fill: #666; text-anchor: middle; }
+    .node-box { rx: 6; ry: 6; stroke-width: 1.5; }
+    .node-abstract { fill: #E3F2FD; stroke: #1565C0; }
+    .node-scalar { fill: #FFF3E0; stroke: #E65100; }
+    .node-vector { fill: #E8F5E9; stroke: #2E7D32; }
+    .node-advect { fill: #F3E5F5; stroke: #6A1B9A; }
+    .node-text { font-family: 'Source Sans Pro', sans-serif; font-size: 11px; fill: #222; text-anchor: middle; }
+    .node-detail { font-family: 'Source Sans Pro', sans-serif; font-size: 9px; fill: #555; text-anchor: middle; }
+    .edge { stroke: #888; stroke-width: 1.5; fill: none; }
+    .edge-head { fill: #888; }
+    .cat-label { font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: 600; fill: #444; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .title { fill: #eee; }
+      .subtitle { fill: #aaa; }
+      .node-abstract { fill: #1a3a5c; stroke: #64B5F6; }
+      .node-scalar { fill: #4a2800; stroke: #FF8A65; }
+      .node-vector { fill: #1b3a1b; stroke: #81C784; }
+      .node-advect { fill: #3a1a4a; stroke: #CE93D8; }
+      .node-text { fill: #eee; }
+      .node-detail { fill: #bbb; }
+      .edge { stroke: #777; }
+      .edge-head { fill: #777; }
+      .cat-label { fill: #ccc; }
+    }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" class="edge-head"/>
+    </marker>
+  </defs>
+  <!-- Title -->
+  <text x="260" y="20" class="title">Operator taxonomy</text>
+  <!-- StencilOp (root) -->
+  <rect x="190" y="35" width="140" height="32" class="node-box node-abstract"/>
+  <text x="260" y="53" class="node-text" font-weight="600">StencilOp</text>
+  <text x="260" y="63" class="node-detail">abstract base</text>
+  <!-- Edges from root to categories -->
+  <line x1="210" y1="67" x2="110" y2="95" class="edge" marker-end="url(#arrowhead)"/>
+  <line x1="260" y1="67" x2="260" y2="95" class="edge" marker-end="url(#arrowhead)"/>
+  <line x1="310" y1="67" x2="410" y2="95" class="edge" marker-end="url(#arrowhead)"/>
+  <!-- Category labels -->
+  <text x="110" y="108" class="cat-label">Scalar → Scalar</text>
+  <text x="260" y="108" class="cat-label">Scalar → Vector</text>
+  <text x="410" y="108" class="cat-label">Vector → …</text>
+  <!-- Scalar operators -->
+  <rect x="20" y="118" width="100" height="28" class="node-box node-scalar"/>
+  <text x="70" y="135" class="node-text">Laplacian</text>
+  <rect x="130" y="118" width="100" height="28" class="node-box node-scalar"/>
+  <text x="180" y="135" class="node-text">Biharmonic</text>
+  <rect x="20" y="155" width="100" height="28" class="node-box node-scalar"/>
+  <text x="70" y="168" class="node-text">Lap|∇|²</text>
+  <text x="70" y="178" class="node-detail">Model B+</text>
+  <!-- Gradient operator -->
+  <rect x="210" y="118" width="100" height="28" class="node-box node-scalar"/>
+  <text x="260" y="135" class="node-text">Gradient</text>
+  <text x="260" y="147" class="node-detail">n_feat → n_feat × ndim</text>
+  <!-- Vector operators -->
+  <rect x="350" y="118" width="100" height="28" class="node-box node-vector"/>
+  <text x="400" y="135" class="node-text">Divergence</text>
+  <rect x="350" y="155" width="100" height="28" class="node-box node-vector"/>
+  <text x="400" y="172" class="node-text">Curl</text>
+  <rect x="350" y="192" width="100" height="28" class="node-box node-vector"/>
+  <text x="400" y="209" class="node-text">SymGrad</text>
+  <rect x="350" y="229" width="100" height="28" class="node-box node-vector"/>
+  <text x="400" y="246" class="node-text">SkewGrad</text>
+  <!-- Input/output annotations for vector ops -->
+  <text x="470" y="135" class="node-detail" text-anchor="start">ndim → 1</text>
+  <text x="470" y="172" class="node-detail" text-anchor="start">ndim → 1 (2D) / 3 (3D)</text>
+  <text x="470" y="209" class="node-detail" text-anchor="start">ndim → ndim(ndim+1)/2</text>
+  <text x="470" y="246" class="node-detail" text-anchor="start">ndim → ndim(ndim−1)/2</text>
+  <!-- AdvectionBy -->
+  <rect x="210" y="195" width="100" height="32" class="node-box node-advect"/>
+  <text x="260" y="212" class="node-text">AdvectionBy</text>
+  <text x="260" y="224" class="node-detail">not composable</text>
+  <!-- Composition arrows -->
+  <text x="260" y="270" class="subtitle">Composable via Minkowski-sum stencil fusion</text>
+  <!-- Composition examples -->
+  <text x="90" y="292" class="node-detail">Lap(Lap(φ)) = Biharmonic</text>
+  <text x="300" y="292" class="node-detail">Div(Grad(φ)) ≈ Laplacian</text>
+  <text x="440" y="292" class="node-detail">Curl(Grad(φ)) = 0</text>
+</svg>

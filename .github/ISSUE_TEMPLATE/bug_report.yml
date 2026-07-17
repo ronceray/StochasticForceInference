@@ -1,0 +1,57 @@
+name: Bug report
+description: Report a problem with SFI
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. A **minimal reproducible
+        example** is by far the most useful thing you can provide.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Preliminary checks
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what goes wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducible example
+      description: Self-contained code that reproduces the problem.
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: false
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / traceback
+      description: Paste the full traceback if there is one.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Please paste the output of:
+        ```
+        python -c "import sys, platform, importlib.metadata as m; print('SFI', m.version('StochasticForceInference')); print('Python', sys.version.split()[0]); print('Platform', platform.platform()); import jax; print('JAX', jax.__version__)"
+        ```
+      render: text
+    validations:
+      required: true

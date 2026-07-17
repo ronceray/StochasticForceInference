@@ -1,0 +1,148 @@
+/* SFI docs — custom overrides for Furo theme
+ *
+ * Goals:
+ *   1. Gallery plots have transparent backgrounds with light-grey text,
+ *      optimised for the dark Furo theme.
+ *   2. In light mode, plots sit in a dark card so the grey text remains
+ *      readable.
+ *   3. Gallery thumbnails shown 3-4 per row for denser overview.
+ */
+
+/* ── Content area: wider to fit gallery figures at natural scale ──
+   At 70 rem (≈ 1120 px), a figsize=(4.5, …) image is ~60 % of the
+   content width, matching the "60 % of full width" convention.         */
+:root {
+    --content-width: 70rem;
+}
+
+/* ── Gallery thumbnail grid: 3-4 columns ─────────────────────── */
+.sphx-glr-thumbnails {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+    gap: 12px !important;
+}
+
+.sphx-glr-thumbcontainer {
+    max-width: none !important;
+    width: auto !important;
+    float: none !important;
+    margin: 0 !important;
+}
+
+/* ── Gallery full-size images ─────────────────────────────────── */
+.sphx-glr-single-img,
+.sphx-glr-multi-img {
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/* ── Gallery thumbnail images ─────────────────────────────────── */
+.sphx-glr-thumbcontainer img {
+    border-radius: 4px;
+}
+
+/* ── Fix duplicate title: overlay the <p> link so the card is fully clickable,
+   then visually hide the text (the sphx-glr-thumbnail-title div shows it). ── */
+.sphx-glr-thumbcontainer {
+    position: relative;
+}
+.sphx-glr-thumbcontainer > p {
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+}
+.sphx-glr-thumbcontainer > p a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    font-size: 0;
+    color: transparent;
+    text-decoration: none;
+}
+.sphx-glr-thumbcontainer .sphx-glr-thumbnail-title {
+    font-size: 0.85em;
+    line-height: 1.3;
+    padding: 4px 6px;
+    text-align: center;
+}
+
+/* ── Light-mode: dark card so that light-grey plot text is readable ── */
+@media (prefers-color-scheme: light) {
+    body:not([data-theme="dark"]) .sphx-glr-single-img,
+    body:not([data-theme="dark"]) .sphx-glr-multi-img {
+        background: #1e2028;
+    }
+    body:not([data-theme="dark"]) .sphx-glr-thumbcontainer img {
+        background: #1e2028;
+        border-radius: 4px;
+    }
+}
+body[data-theme="light"] .sphx-glr-single-img,
+body[data-theme="light"] .sphx-glr-multi-img {
+    background: #1e2028;
+}
+body[data-theme="light"] .sphx-glr-thumbcontainer img {
+    background: #1e2028;
+    border-radius: 4px;
+}
+
+/* ── Hide empty code blocks from sphinx-gallery ignore-only cells ── */
+div.highlight-Python div.highlight:has(> pre > span:only-child:empty) {
+    display: none;
+}
+
+/* ── Gallery animation / video sizing ─────────────────────────── */
+.sphx-glr-animation video,
+.sphinx-contrib-video-container video,
+video.sphx-glr-single-img,
+video.sphx-glr-multi-img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ── Hide the dedicated "Thumbnail" section on gallery pages ────
+   Each demo ends with a curated single-panel figure used only as the
+   gallery-index tile; suppress its on-page section and its entry in
+   the "on this page" TOC. */
+section#thumbnail {
+    display: none;
+}
+.toc-tree li:has(> a[href="#thumbnail"]) {
+    display: none;
+}
+
+/* ── Gallery tag-filter chips (sg-tags.js) ──────────────────────
+   Replicated from sphinx-gallery's sg_gallery.css (with fallback
+   colours for its CSS variables) so the committed gallery index gets
+   a styled tag bar on builds where gen_gallery is not loaded — e.g.
+   ReadTheDocs, which serves the committed pages. */
+.sphx-glr-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding-bottom: 2em;
+}
+.sphx-glr-tag {
+    padding: 5px 10px;
+    background-color: var(--sg-tooltip-background, rgba(125, 125, 125, 0.22));
+    border: 2px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.sphx-glr-tag:hover,
+.sphx-glr-tag.active {
+    border-color: var(--sg-thumb-hover-border, #0d6efd);
+}
+.sphx-glr-tag-label {
+    padding: 5px 10px 5px 0px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-weight: 600;
+}
+#sphx-glr-tag-clear {
+    cursor: pointer;
+}
