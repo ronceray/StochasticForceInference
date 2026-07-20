@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://stochasticforceinference.readthedocs.io
+    about: Tutorials, user guides, API reference, and the example gallery.
+  - name: Questions & usage help
+    url: https://github.com/ronceray/StochasticForceInference/discussions
+    about: For "how do I…" questions, please use Discussions rather than the issue tracker.

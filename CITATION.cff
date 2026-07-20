@@ -1,0 +1,108 @@
+cff-version: 1.2.0
+message: >-
+  If you use SFI in your research, please cite the software (this record) and the
+  method paper(s) relevant to the features you use. See the "How to cite" section
+  of the documentation (https://stochasticforceinference.readthedocs.io) for which papers apply.
+title: "Stochastic Force Inference (SFI)"
+abstract: >-
+  A JAX-based Python library for inferring force and diffusion fields from
+  stochastic trajectory data (overdamped and underdamped Langevin dynamics),
+  with closed-form linear estimators and noise-robust parametric estimators,
+  sparse model selection (PASTIS), interacting-particle and spatially-extended
+  systems, simulation, and diagnostics.
+type: software
+version: 2.0.2
+date-released: "2026-07-20"
+license: MIT
+repository-code: "https://github.com/ronceray/StochasticForceInference"
+url: "https://stochasticforceinference.readthedocs.io"
+authors:
+  - given-names: Pierre
+    family-names: Ronceray
+    email: pierre.ronceray@univ-amu.fr
+    affiliation: "Aix Marseille Université, CNRS, CINAM, Turing Center for Living Systems, Marseille, France"
+keywords:
+  - stochastic force inference
+  - Langevin dynamics
+  - stochastic differential equations
+  - diffusion inference
+  - sparse model selection
+  - active matter
+  - biophysics
+  - JAX
+# Software DOI (Zenodo): uncomment and fill in after the first GitHub release is
+# archived by Zenodo (see release plan, Phase 7). Then mirror it in README.
+# doi: "10.5281/zenodo.XXXXXXX"
+preferred-citation:
+  type: article
+  title: "Learning force fields from stochastic trajectories"
+  authors:
+    - given-names: Anna
+      family-names: Frishman
+    - given-names: Pierre
+      family-names: Ronceray
+  journal: "Physical Review X"
+  volume: 10
+  start: "021009"
+  year: 2020
+  doi: "10.1103/PhysRevX.10.021009"
+references:
+  - type: article
+    title: "Inferring the dynamics of underdamped stochastic systems"
+    authors:
+      - given-names: David B.
+        family-names: Brückner
+      - given-names: Pierre
+        family-names: Ronceray
+      - given-names: Chase P.
+        family-names: Broedersz
+    journal: "Physical Review Letters"
+    volume: 125
+    start: "058103"
+    year: 2020
+    doi: "10.1103/PhysRevLett.125.058103"
+    notes: "Cite if you use the underdamped (ULI) inference mode."
+  - type: article
+    title: "Inferring geometrical dynamics of cell nucleus translocation"
+    authors:
+      - given-names: S.
+        family-names: Amri
+      - given-names: Y.
+        family-names: Zhang
+      - given-names: A.
+        family-names: Gerardos
+      - given-names: C.
+        family-names: Sykes
+      - given-names: Pierre
+        family-names: Ronceray
+    journal: "Physical Review Research"
+    volume: 6
+    start: "043030"
+    year: 2024
+    doi: "10.1103/PhysRevResearch.6.043030"
+    notes: >-
+      Cite if you use the overdamped trapeze (trapezoidal) integration scheme
+      (G_mode='trapeze', the default in infer_force_linear).
+  - type: article
+    title: "Principled model selection for stochastic dynamics"
+    authors:
+      - given-names: A.
+        family-names: Gerardos
+      - given-names: Pierre
+        family-names: Ronceray
+    journal: "Physical Review Letters"
+    volume: 135
+    start: "167401"
+    year: 2025
+    doi: "10.1103/ltdt-hvh7"
+    notes: "Cite if you use the PASTIS sparse model-selection criterion."
+  - type: article
+    title: "Nonlinear Stochastic Force Inference"
+    authors:
+      - given-names: Pierre
+        family-names: Ronceray
+    year: 2026
+    notes: >-
+      In preparation. Cite if you use the parametric estimators
+      (infer_force / infer_diffusion); please contact the author before
+      submitting work that relies on them.

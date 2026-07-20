@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260">
+  <style>
+    .grid-line { stroke: #999; stroke-width: 0.5; }
+    .dot-empty { fill: #ccc; }
+    .dot-active { fill: #2196F3; }
+    .dot-center { fill: #FF5722; }
+    .label { font-family: 'Source Sans Pro', sans-serif; font-size: 11px; fill: #333; text-anchor: middle; }
+    .title { font-family: 'Source Sans Pro', sans-serif; font-size: 14px; font-weight: 600; fill: #333; text-anchor: middle; }
+    .weight { font-family: 'Source Code Pro', monospace; font-size: 10px; fill: #555; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .grid-line { stroke: #555; }
+      .dot-empty { fill: #444; }
+      .dot-active { fill: #64B5F6; }
+      .dot-center { fill: #FF8A65; }
+      .label { fill: #ccc; }
+      .title { fill: #eee; }
+      .weight { fill: #aaa; }
+    }
+  </style>
+  <!-- Title -->
+  <text x="130" y="20" class="title">Laplacian — 5-point cross stencil</text>
+  <!-- Grid lines -->
+  <g>
+    <line x1="30" y1="50" x2="230" y2="50" class="grid-line"/>
+    <line x1="30" y1="100" x2="230" y2="100" class="grid-line"/>
+    <line x1="30" y1="150" x2="230" y2="150" class="grid-line"/>
+    <line x1="30" y1="200" x2="230" y2="200" class="grid-line"/>
+    <line x1="30" y1="250" x2="230" y2="250" class="grid-line"/>
+    <line x1="30" y1="50" x2="30" y2="250" class="grid-line"/>
+    <line x1="80" y1="50" x2="80" y2="250" class="grid-line"/>
+    <line x1="130" y1="50" x2="130" y2="250" class="grid-line"/>
+    <line x1="180" y1="50" x2="180" y2="250" class="grid-line"/>
+    <line x1="230" y1="50" x2="230" y2="250" class="grid-line"/>
+  </g>
+  <!-- Empty dots (corners) -->
+  <circle cx="30"  cy="50"  r="5" class="dot-empty"/>
+  <circle cx="180" cy="50"  r="5" class="dot-empty"/>
+  <circle cx="30"  cy="100" r="5" class="dot-empty"/>
+  <circle cx="180" cy="100" r="5" class="dot-empty"/>
+  <circle cx="30"  cy="200" r="5" class="dot-empty"/>
+  <circle cx="180" cy="200" r="5" class="dot-empty"/>
+  <circle cx="30"  cy="250" r="5" class="dot-empty"/>
+  <circle cx="180" cy="250" r="5" class="dot-empty"/>
+  <circle cx="230" cy="50"  r="5" class="dot-empty"/>
+  <circle cx="230" cy="100" r="5" class="dot-empty"/>
+  <circle cx="230" cy="200" r="5" class="dot-empty"/>
+  <circle cx="230" cy="250" r="5" class="dot-empty"/>
+  <circle cx="30"  cy="150" r="5" class="dot-empty"/>
+  <circle cx="230" cy="150" r="5" class="dot-empty"/>
+  <circle cx="80"  cy="50"  r="5" class="dot-empty"/>
+  <circle cx="80"  cy="250" r="5" class="dot-empty"/>
+  <circle cx="130" cy="50"  r="5" class="dot-empty"/>
+  <circle cx="130" cy="250" r="5" class="dot-empty"/>
+  <!-- Active stencil points (cross) -->
+  <circle cx="130" cy="100" r="8" class="dot-active"/>
+  <text x="130" y="88" class="weight">1/Δx²</text>
+  <circle cx="80"  cy="150" r="8" class="dot-active"/>
+  <text x="80"  y="138" class="weight">1/Δy²</text>
+  <circle cx="180" cy="150" r="8" class="dot-active"/>
+  <text x="180" y="138" class="weight">1/Δy²</text>
+  <circle cx="130" cy="200" r="8" class="dot-active"/>
+  <text x="130" y="224" class="weight">1/Δx²</text>
+  <!-- Center point -->
+  <circle cx="130" cy="150" r="10" class="dot-center"/>
+  <text x="130" y="170" class="weight">−2Σ1/Δxα²</text>
+  <!-- Non-stencil row dots -->
+  <circle cx="80"  cy="100" r="5" class="dot-empty"/>
+  <circle cx="180" cy="100" r="5" class="dot-empty"/>
+  <circle cx="80"  cy="200" r="5" class="dot-empty"/>
+  <circle cx="180" cy="200" r="5" class="dot-empty"/>
+</svg>

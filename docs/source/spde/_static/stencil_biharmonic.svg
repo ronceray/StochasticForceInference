@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <style>
+    .grid-line { stroke: #999; stroke-width: 0.5; }
+    .dot-empty { fill: #ccc; }
+    .dot-r1 { fill: #2196F3; }
+    .dot-r2 { fill: #9C27B0; }
+    .dot-diag { fill: #4CAF50; }
+    .dot-center { fill: #FF5722; }
+    .label { font-family: 'Source Sans Pro', sans-serif; font-size: 11px; fill: #333; text-anchor: middle; }
+    .title { font-family: 'Source Sans Pro', sans-serif; font-size: 14px; font-weight: 600; fill: #333; text-anchor: middle; }
+    .weight { font-family: 'Source Code Pro', monospace; font-size: 9px; fill: #555; text-anchor: middle; }
+    .legend { font-family: 'Source Sans Pro', sans-serif; font-size: 10px; fill: #555; }
+    @media (prefers-color-scheme: dark) {
+      .grid-line { stroke: #555; }
+      .dot-empty { fill: #444; }
+      .dot-r1 { fill: #64B5F6; }
+      .dot-r2 { fill: #CE93D8; }
+      .dot-diag { fill: #81C784; }
+      .dot-center { fill: #FF8A65; }
+      .label { fill: #ccc; }
+      .title { fill: #eee; }
+      .weight { fill: #aaa; }
+      .legend { fill: #bbb; }
+    }
+  </style>
+  <!-- Title -->
+  <text x="160" y="18" class="title">Biharmonic — 13-point stencil (2D)</text>
+  <!-- Grid lines (5x5) -->
+  <g>
+    <line x1="40" y1="35" x2="280" y2="35" class="grid-line"/>
+    <line x1="40" y1="95" x2="280" y2="95" class="grid-line"/>
+    <line x1="40" y1="155" x2="280" y2="155" class="grid-line"/>
+    <line x1="40" y1="215" x2="280" y2="215" class="grid-line"/>
+    <line x1="40" y1="275" x2="280" y2="275" class="grid-line"/>
+    <line x1="40" y1="35" x2="40" y2="275" class="grid-line"/>
+    <line x1="100" y1="35" x2="100" y2="275" class="grid-line"/>
+    <line x1="160" y1="35" x2="160" y2="275" class="grid-line"/>
+    <line x1="220" y1="35" x2="220" y2="275" class="grid-line"/>
+    <line x1="280" y1="35" x2="280" y2="275" class="grid-line"/>
+  </g>
+  <!-- Empty corner dots -->
+  <circle cx="40"  cy="35"  r="4" class="dot-empty"/>
+  <circle cx="280" cy="35"  r="4" class="dot-empty"/>
+  <circle cx="40"  cy="275" r="4" class="dot-empty"/>
+  <circle cx="280" cy="275" r="4" class="dot-empty"/>
+  <circle cx="40"  cy="95"  r="4" class="dot-empty"/>
+  <circle cx="280" cy="95"  r="4" class="dot-empty"/>
+  <circle cx="40"  cy="215" r="4" class="dot-empty"/>
+  <circle cx="280" cy="215" r="4" class="dot-empty"/>
+  <circle cx="40"  cy="155" r="4" class="dot-empty"/>
+  <circle cx="280" cy="155" r="4" class="dot-empty"/>
+  <circle cx="100" cy="35"  r="4" class="dot-empty"/>
+  <circle cx="220" cy="35"  r="4" class="dot-empty"/>
+  <circle cx="100" cy="275" r="4" class="dot-empty"/>
+  <circle cx="220" cy="275" r="4" class="dot-empty"/>
+  <!-- Radius-2 extended axis (purple) -->
+  <circle cx="160" cy="35"  r="7" class="dot-r2"/>
+  <text x="160" y="28" class="weight">1</text>
+  <circle cx="160" cy="275" r="7" class="dot-r2"/>
+  <text x="160" y="292" class="weight">1</text>
+  <circle cx="40"  cy="155" r="7" class="dot-r2"/>
+  <text x="28"  y="148" class="weight">1</text>
+  <circle cx="280" cy="155" r="7" class="dot-r2"/>
+  <text x="296" y="148" class="weight">1</text>
+  <!-- Radius-1 cross (blue) -->
+  <circle cx="160" cy="95"  r="7" class="dot-r1"/>
+  <text x="160" y="85" class="weight">−4</text>
+  <circle cx="160" cy="215" r="7" class="dot-r1"/>
+  <text x="160" y="232" class="weight">−4</text>
+  <circle cx="100" cy="155" r="7" class="dot-r1"/>
+  <text x="85"  y="165" class="weight">−4</text>
+  <circle cx="220" cy="155" r="7" class="dot-r1"/>
+  <text x="238" y="165" class="weight">−4</text>
+  <!-- Diagonal corners (green) -->
+  <circle cx="100" cy="95"  r="7" class="dot-diag"/>
+  <text x="85"  y="85" class="weight">2</text>
+  <circle cx="220" cy="95"  r="7" class="dot-diag"/>
+  <text x="237" y="85" class="weight">2</text>
+  <circle cx="100" cy="215" r="7" class="dot-diag"/>
+  <text x="85"  y="232" class="weight">2</text>
+  <circle cx="220" cy="215" r="7" class="dot-diag"/>
+  <text x="237" y="232" class="weight">2</text>
+  <!-- Center (orange) -->
+  <circle cx="160" cy="155" r="9" class="dot-center"/>
+  <text x="160" y="175" class="weight">20</text>
+  <!-- Legend -->
+  <circle cx="45" cy="302" r="4" class="dot-center"/>
+  <text x="55" y="306" class="legend" text-anchor="start">center (20)</text>
+  <circle cx="120" cy="302" r="4" class="dot-r1"/>
+  <text x="130" y="306" class="legend" text-anchor="start">radius 1 (−4)</text>
+  <circle cx="210" cy="302" r="4" class="dot-r2"/>
+  <text x="220" y="306" class="legend" text-anchor="start">radius 2 (1)</text>
+  <circle cx="280" cy="302" r="4" class="dot-diag"/>
+  <text x="290" y="306" class="legend" text-anchor="start">diag (2)</text>
+</svg>

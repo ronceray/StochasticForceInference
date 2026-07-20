@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "StochasticForceInference"
+version = "2.0.2"
+description = "Stochastic Force Inference for Langevin SDEs"
+authors = [{name = "Pierre Ronceray", email = "pierre.ronceray@univ-amu.fr"}]
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+keywords = [
+  "stochastic force inference", "Langevin dynamics",
+  "stochastic differential equations", "diffusion", "inference",
+  "sparse model selection", "active matter", "biophysics", "JAX",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+dependencies = [
+  "numpy",
+  "scipy",
+  "jax>=0.10",
+  "jaxlib",
+  "pandas",
+  "matplotlib",
+  "pyyaml",
+  "equinox>=0.12",
+  "opt-einsum"
+]
+
+[project.optional-dependencies]
+docs = ["sphinx","furo","sphinx-autodoc-typehints","myst-parser","sphinx-gallery","sphinxcontrib-video","sphinxcontrib-mermaid"]
+dev = ["pytest", "ruff", "pyright", "StochasticForceInference[docs]"]
+io = ["pyarrow>=14", "h5py>=3.9", "pandas>=2.0", "PyYAML>=6.0"]
+
+[project.urls]
+Homepage = "https://github.com/ronceray/StochasticForceInference"
+Documentation = "https://stochasticforceinference.readthedocs.io"
+Repository = "https://github.com/ronceray/StochasticForceInference"
+Issues = "https://github.com/ronceray/StochasticForceInference/issues"
+Changelog = "https://github.com/ronceray/StochasticForceInference/blob/main/CHANGELOG.md"
+
+[tool.pytest.ini_options]
+addopts = "-m 'not slow'"
+markers = [
+    "slow: marks tests as slow integration tests (run with -m slow or -m '')",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["F401", "E402"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "basic"
+include = ["SFI"]
+reportRedeclaration = "none"
+
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["SFI*"]
+
