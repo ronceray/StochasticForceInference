@@ -1,0 +1,26 @@
+# Core dependencies — see pyproject.toml for the canonical list.
+# For exact reproducible pins, use: pip install -r requirements-lock.txt
+numpy
+scipy
+jax>=0.10
+jaxlib
+pandas
+matplotlib
+pyyaml
+equinox>=0.12
+opt-einsum
+
+# Optional I/O
+pyarrow>=14
+h5py>=3.9
+
+# Dev / docs
+pytest
+ruff
+sphinx
+furo
+sphinx-autodoc-typehints
+myst-parser
+sphinx-gallery
+sphinxcontrib-video
+sphinxcontrib-mermaid

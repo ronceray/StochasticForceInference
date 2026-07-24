@@ -1,0 +1,39 @@
+# Include all Python files from example folders
+recursive-include examples *.py
+
+# Top-level docs we want shipped
+include README.md LICENSE pyproject.toml setup.cfg
+include AGENTS.md CONTRIBUTING.md GALLERY_STYLE_GUIDE.md
+
+# Exclude common junk files
+global-exclude *.csv *.mp4 *.pkl *.npz *.npy *~ *.bak
+global-exclude *.log *.jsonl
+global-exclude __pycache__/
+global-exclude .DS_Store
+global-exclude *.pyc
+
+# Exclude developer-only top-level directories from sdist
+prune archive
+prune temp
+prune slides
+prune design_notes_history
+prune _project_index
+prune docs/build
+prune .github
+prune .vscode
+prune .local_backup
+prune .pytest_cache
+prune .ruff_cache
+prune .cache
+prune scripts/_dev_*
+
+# Exclude internal-only project files
+exclude CLAUDE.md
+exclude IMPROVEMENTS_NECESSARY_FOR_PUBLIC_RELEASE.md
+exclude TODO
+exclude make_project_index.py
+exclude lorenz_demo.ipynb
+
+# Exclude generated/output directories nested under examples
+recursive-exclude examples *_output
+recursive-exclude examples _cache

@@ -1,0 +1,27 @@
+{
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "title": "Stochastic Force Inference (SFI)",
+  "description": "<p>A JAX-based Python library for inferring force and diffusion fields from stochastic trajectory data (overdamped and underdamped Langevin dynamics), with closed-form linear estimators and noise-robust parametric estimators, sparse model selection (PASTIS), interacting-particle and spatially-extended systems, simulation, and diagnostics.</p><p>Funded by the European Union (ERC, SuperStoc, 101117322). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. P. R. also acknowledges funding from the French National Research Agency (ANR-16-CONV-0001) and from the Excellence Initiative of Aix-Marseille University A*MIDEX.</p>",
+  "creators": [
+    {
+      "name": "Ronceray, Pierre",
+      "affiliation": "Aix Marseille Univ, CNRS, CINaM, Turing Center for Living Systems, Marseille, France",
+      "orcid": "0000-0002-9012-7544"
+    }
+  ],
+  "keywords": [
+    "stochastic force inference",
+    "Langevin dynamics",
+    "stochastic differential equations",
+    "diffusion inference",
+    "sparse model selection",
+    "active matter",
+    "biophysics",
+    "JAX"
+  ],
+  "grants": [
+    {"id": "10.13039/501100000780::101117322"}
+  ]
+}

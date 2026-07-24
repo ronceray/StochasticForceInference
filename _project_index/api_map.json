@@ -1,0 +1,763 @@
+{
+  "package": "SFI",
+  "version": "2.0.0",
+  "top_level_exports": [
+    "Basis",
+    "DiagnosticsReport",
+    "DynamicsOrderReport",
+    "InferenceResultSF",
+    "OverdampedLangevinInference",
+    "PSF",
+    "SF",
+    "TrajectoryCollection",
+    "TrajectoryDataset",
+    "UnderdampedLangevinInference",
+    "assess",
+    "classify_dynamics",
+    "enable_logging",
+    "make_sf"
+  ],
+  "subpackages": [
+    {
+      "module": "SFI.statefunc",
+      "doc": "High-level API for state functions.",
+      "symbols": [
+        {
+          "name": "Basis",
+          "kind": "class",
+          "signature": "(root)",
+          "summary": "Deterministic dictionary fa\u00e7ade (no parameters).",
+          "defined_in": "SFI.statefunc.basis"
+        },
+        {
+          "name": "Interactor",
+          "kind": "class",
+          "signature": "(root)",
+          "summary": "Local interaction expression (pre-dispatch).",
+          "defined_in": "SFI.statefunc.interactor"
+        },
+        {
+          "name": "PSF",
+          "kind": "class",
+          "signature": "(root: SFI.statefunc.nodes.base.BaseNode, *, drop_features: bool = True)",
+          "summary": "Parametric State-Function family `F(x; \u03b8)`.",
+          "defined_in": "SFI.statefunc.psf"
+        },
+        {
+          "name": "ParamSpec",
+          "kind": "class",
+          "signature": "(name: 'str', shape: 'Tuple[int, ...]', dtype: 'Any' = <class 'jax.numpy.float32'>, init: 'Callable | str' = 'zeros', default: 'Any' = None) -> None",
+          "summary": "ParamSpec(name: 'str', shape: 'Tuple[int, ...]', dtype: 'Any' = <class 'jax.numpy.float32'>, init: 'Callable | str' = 'zeros', default: 'Any' = None)",
+          "defined_in": "SFI.statefunc.params"
+        },
+        {
+          "name": "ParamSuite",
+          "kind": "class",
+          "signature": "(specs: 'Iterable[ParamSpec]')",
+          "summary": "Immutable container holding a set of ``ParamSpec`` objects.",
+          "defined_in": "SFI.statefunc.params"
+        },
+        {
+          "name": "Rank",
+          "kind": "class",
+          "signature": "(value, names=None, *, module=None, qualname=None, type=None, start=1, boundary=None)",
+          "summary": "Enum where members are also (and must be) ints",
+          "defined_in": "SFI.statefunc.nodes.contract"
+        },
+        {
+          "name": "SF",
+          "kind": "class",
+          "signature": "(psf: SFI.statefunc.psf.PSF, params: dict[str, jax.jaxlib._jax.Array], *, drop_features: bool | None = None)",
+          "summary": "State-Function with \u03b8 fixed (a thin wrapper over the PSF\u2019s root).",
+          "defined_in": "SFI.statefunc.sf"
+        },
+        {
+          "name": "StateExpr",
+          "kind": "class",
+          "signature": "(root)",
+          "summary": "Immutable *state expression* backed by a static node tree.",
+          "defined_in": "SFI.statefunc.stateexpr"
+        },
+        {
+          "name": "make_basis",
+          "kind": "function",
+          "signature": "(func: Callable, *, dim: int | None = None, rank: int, n_features: int = 1, needs_v: bool = False, labels: Optional[Sequence[str]] = None, descriptor: Any = 'custom', extras_keys: Optional[Sequence[str]] = None, particle_extras: Optional[Sequence[str]] = None, specialize_at: Optional[Callable] = None) -> SFI.statefunc.basis.Basis",
+          "summary": "Construct a **deterministic Basis** from a *single-sample* user function,",
+          "defined_in": "SFI.statefunc.factory"
+        },
+        {
+          "name": "make_interactor",
+          "kind": "function",
+          "signature": "(func: Callable, *, dim: int, rank: SFI.statefunc.nodes.contract.Rank, K: int | None = None, Kmax: int | None = None, n_features: int = 1, needs_v: bool = False, labels: Iterable[str] = (), descriptor=None, params: SFI.statefunc.params.ParamSuite | None = None, extras_keys: Iterable[str] = (), particle_extras: Iterable[str] = ())",
+          "summary": "Build a local interaction dictionary (Interactor) from a single-sample user",
+          "defined_in": "SFI.statefunc.factory"
+        },
+        {
+          "name": "make_psf",
+          "kind": "function",
+          "signature": "(func: Callable, *, dim: int | None = None, rank: int, n_features: int = 1, drop_features: bool = True, needs_v: bool = False, labels: Optional[Sequence[str]] = None, descriptor: Any = 'parametric', params: Union[SFI.statefunc.params.ParamSuite, Iterable[SFI.statefunc.params.ParamSpec], dict[str, Any]], extras_keys: Optional[Sequence[str]] = None, specialize_at: Optional[Callable] = None) -> SFI.statefunc.psf.PSF",
+          "summary": "Construct a **parametric state-function family (PSF)** from a *single-sample*",
+          "defined_in": "SFI.statefunc.factory"
+        },
+        {
+          "name": "make_sf",
+          "kind": "function",
+          "signature": "(func: Callable, *, dim: int | None = None, rank: int, n_features: int = 1, drop_features: bool = True, needs_v: bool = False, labels: Optional[Sequence[str]] = None, descriptor: Any = 'custom_sf', extras_keys: Optional[Sequence[str]] = None) -> SFI.statefunc.sf.SF",
+          "summary": "Construct an **SF** (bound state function) directly from a parameter-free",
+          "defined_in": "SFI.statefunc.factory"
+        },
+        {
+          "name": "set_jit",
+          "kind": "function",
+          "signature": "(enabled: bool = True)",
+          "summary": "Globally enable/disable JIT for Basis/PSF/SF __call__.",
+          "defined_in": "SFI.statefunc.core.runtime"
+        }
+      ]
+    },
+    {
+      "module": "SFI.inference",
+      "doc": "SFI.inference \u2014 Stochastic Force Inference engines.",
+      "symbols": [
+        {
+          "name": "BeamSearchStrategy",
+          "kind": "class",
+          "signature": "(*, beam_width: 'int' = 20, aic_patience: 'int' = 2, report_time: 'bool' = False)",
+          "summary": "Bidirectional beam search over the support lattice.",
+          "defined_in": "SFI.inference.sparse.beam"
+        },
+        {
+          "name": "GreedyStepwiseStrategy",
+          "kind": "class",
+          "signature": "(*, direction: 'str' = 'forward', report_time: 'bool' = False)",
+          "summary": "Forward / backward / bidirectional stepwise selection.",
+          "defined_in": "SFI.inference.sparse.greedy"
+        },
+        {
+          "name": "HillClimbStrategy",
+          "kind": "class",
+          "signature": "(*, ic: 'str' = 'PASTIS', p_param: 'float' = 0.001, tau: 'Optional[float]' = None, gamma: 'float' = 0.5, patience: 'int' = 200, seed: 'Optional[int]' = None, report_time: 'bool' = False)",
+          "summary": "Stochastic hill-climbing model selection.",
+          "defined_in": "SFI.inference.sparse.hillclimb"
+        },
+        {
+          "name": "InferenceResultSF",
+          "kind": "class",
+          "signature": "(sf: 'SF', *, param_cov: 'Optional[jnp.ndarray]' = None, meta: 'Optional[Dict[str, Any]]' = None)",
+          "summary": "A fitted, callable state function that *is* an SF and carries",
+          "defined_in": "SFI.inference.result"
+        },
+        {
+          "name": "LassoStrategy",
+          "kind": "class",
+          "signature": "(*, alpha: 'float | None' = None, n_alphas: 'int' = 50, max_iter: 'int' = 1000, tol: 'float' = 1e-07, report_time: 'bool' = False)",
+          "summary": "Coordinate-descent LASSO on the normal equations.",
+          "defined_in": "SFI.inference.sparse.lasso"
+        },
+        {
+          "name": "OverdampedLangevinInference",
+          "kind": "class",
+          "signature": "(data, *, max_memory_gb=1.0, **kwargs)",
+          "summary": "Stochastic Force Inference concrete class for overdamped systems",
+          "defined_in": "SFI.inference.overdamped"
+        },
+        {
+          "name": "STLSQStrategy",
+          "kind": "class",
+          "signature": "(*, threshold: 'float | None' = None, mode: 'str' = 'relative', max_iter: 'int' = 50, n_thresholds: 'int' = 30, report_time: 'bool' = False)",
+          "summary": "Sequential Thresholded Least Squares (SINDy-style).",
+          "defined_in": "SFI.inference.sparse.stlsq"
+        },
+        {
+          "name": "SparseScorer",
+          "kind": "class",
+          "signature": "(*, M: 'Array', G: 'Array', norm_X2: 'float' = 0.0, n: 'int' = 1, pinv_tol: 'float' = 1e-08, use_residuals: 'bool' = False)",
+          "summary": "Score candidate supports by solving the restricted normal equations.",
+          "defined_in": "SFI.inference.sparse.scorer"
+        },
+        {
+          "name": "SparsityResult",
+          "kind": "class",
+          "signature": "(p: 'int', total_info: 'float', method: 'str', best_info_by_k: 'list' = <factory>, best_support_by_k: 'list' = <factory>, best_coeffs_by_k: 'list' = <factory>, second_info_by_k: 'list' = <factory>, second_support_by_k: 'list' = <factory>) -> None",
+          "summary": "Frozen container for the output of a sparsity search.",
+          "defined_in": "SFI.inference.sparse.result"
+        },
+        {
+          "name": "SparsityStrategy",
+          "kind": "class",
+          "signature": "()",
+          "summary": "Abstract base class for sparsity search strategies.",
+          "defined_in": "SFI.inference.sparse.base"
+        },
+        {
+          "name": "UnderdampedLangevinInference",
+          "kind": "class",
+          "signature": "(data, *, max_memory_gb=1.0, **kwargs)",
+          "summary": "Stochastic Force Inference concrete class for underdamped systems (velocities unobserved).",
+          "defined_in": "SFI.inference.underdamped"
+        },
+        {
+          "name": "kernel_predict_ci",
+          "kind": "function",
+          "signature": "(r_eval: 'Union[np.ndarray, jnp.ndarray]', kernels: 'Sequence[Tuple[callable, str]]', coeffs: 'Union[np.ndarray, jnp.ndarray]', cov_block: 'Union[np.ndarray, jnp.ndarray]', *, alpha: 'float' = 0.95) -> 'Dict[str, np.ndarray]'",
+          "summary": "Confidence interval for a 1D kernel profile.",
+          "defined_in": "SFI.inference.result"
+        },
+        {
+          "name": "load_model",
+          "kind": "function",
+          "signature": "(path: 'str | Path', template) -> \"'InferenceResultSF'\"",
+          "summary": "Reload an ``InferenceResultSF`` from files written by :func:`save_model`.",
+          "defined_in": "SFI.inference.serialization"
+        },
+        {
+          "name": "load_results",
+          "kind": "function",
+          "signature": "(path: 'str | Path') -> 'dict'",
+          "summary": "Reload a dict saved by :func:`save_results`.",
+          "defined_in": "SFI.inference.serialization"
+        },
+        {
+          "name": "overlap_metrics",
+          "kind": "function",
+          "signature": "(true_support: 'List[int]', pred_support: 'List[int]') -> 'Dict'",
+          "summary": "Compare predicted support to the ground truth.",
+          "defined_in": "SFI.inference.sparse.metrics"
+        },
+        {
+          "name": "predictive_nmse",
+          "kind": "function",
+          "signature": "(Phi_test: 'Array', true_support: 'List[int]', true_coeffs, inferred_support: 'List[int]', inferred_coeffs) -> 'float'",
+          "summary": "Normalised mean-squared error on a held-out design matrix.",
+          "defined_in": "SFI.inference.sparse.metrics"
+        },
+        {
+          "name": "save_model",
+          "kind": "function",
+          "signature": "(result_sf, path: 'str | Path') -> 'Path'",
+          "summary": "Serialize an ``InferenceResultSF`` (params array + metadata).",
+          "defined_in": "SFI.inference.serialization"
+        },
+        {
+          "name": "save_results",
+          "kind": "function",
+          "signature": "(inferer, path: 'str | Path') -> 'Path'",
+          "summary": "Save ``inferer.report_dict()`` to ``<path>.npz`` + ``<path>.json``.",
+          "defined_in": "SFI.inference.serialization"
+        }
+      ]
+    },
+    {
+      "module": "SFI.trajectory",
+      "doc": "Trajectory submodule public API.",
+      "symbols": [
+        {
+          "name": "FunctionExtra",
+          "kind": "class",
+          "signature": "(func: 'Callable') -> None",
+          "summary": "Wrapper for a JAX-compatible callable passed through extras.",
+          "defined_in": "SFI.trajectory.dataset"
+        },
+        {
+          "name": "TimeSeriesExtra",
+          "kind": "class",
+          "signature": "(data: 'Array') -> None",
+          "summary": "Wrapper for time-dependent extras with an explicit leading time axis.",
+          "defined_in": "SFI.trajectory.dataset"
+        },
+        {
+          "name": "TrajectoryCollection",
+          "kind": "class",
+          "signature": "(datasets: 'List[TrajectoryDataset]', weights: 'jnp.ndarray') -> None",
+          "summary": "Container for one or more trajectories plus per-dataset weights.",
+          "defined_in": "SFI.trajectory.collection"
+        },
+        {
+          "name": "TrajectoryDataset",
+          "kind": "class",
+          "signature": "(X: 'Array', dt: 'Optional[Array | float]' = None, t: 'Optional[Array]' = None, mask: 'Optional[Array]' = None, dynamic_mask: 'Optional[Array]' = None, extras_global: 'Dict[str, Any] | None' = <factory>, extras_local: 'Dict[str, Any] | None' = <factory>, meta: 'Dict[str, Any] | None' = <factory>) -> None",
+          "summary": "Immutable dataset for a single trajectory.",
+          "defined_in": "SFI.trajectory.dataset"
+        },
+        {
+          "name": "function_extra",
+          "kind": "function",
+          "signature": "(func: 'Callable') -> 'FunctionExtra'",
+          "summary": "Build a :class:`FunctionExtra` from a callable.",
+          "defined_in": "SFI.trajectory.dataset"
+        },
+        {
+          "name": "time_series_extra",
+          "kind": "function",
+          "signature": "(x: 'Any') -> 'TimeSeriesExtra'",
+          "summary": "Build a :class:`TimeSeriesExtra` from an array-like.",
+          "defined_in": "SFI.trajectory.dataset"
+        }
+      ]
+    },
+    {
+      "module": "SFI.langevin",
+      "doc": "SFI.langevin",
+      "symbols": [
+        {
+          "name": "CompositeNoise",
+          "kind": "class",
+          "signature": "(*, components: 'List[Tuple[NoiseModel, List[int]]]', n_fields: 'int') -> 'None'",
+          "summary": "Apply different noise models to different field components.",
+          "defined_in": "SFI.langevin.noise"
+        },
+        {
+          "name": "ConservedNoise",
+          "kind": "class",
+          "signature": "(sigma: 'float', *, grid_shape: 'Sequence[int]', dx: 'Union[float, Sequence[float]]' = 1.0, n_fields: 'int' = 1) -> 'None'",
+          "summary": "Conserved (divergence-form) noise on a periodic square grid.",
+          "defined_in": "SFI.langevin.noise"
+        },
+        {
+          "name": "NoiseModel",
+          "kind": "class",
+          "signature": "(*, n_fields: 'int') -> 'None'",
+          "summary": "Abstract base for noise models used by Langevin simulators.",
+          "defined_in": "SFI.langevin.noise"
+        },
+        {
+          "name": "OverdampedProcess",
+          "kind": "class",
+          "signature": "(F: Union[SFI.statefunc.basis.Basis, SFI.statefunc.psf.PSF, SFI.statefunc.sf.SF], D: Union[float, jax.jaxlib._jax.Array, SFI.statefunc.basis.Basis, SFI.statefunc.psf.PSF, SFI.statefunc.sf.SF], theta_F: Optional[jax.jaxlib._jax.Array] = None, theta_D: Optional[jax.jaxlib._jax.Array] = None, extras_global: Optional[Dict[str, Any]] = None, extras_local: Optional[Dict[str, Any]] = None, _structural_extras_prepared: bool = False, _prepared_structural: Optional[Dict[str, Any]] = None, _Dinv_const: Optional[jax.jaxlib._jax.Array] = None, _D_sf: Optional[SFI.statefunc.sf.SF] = None) -> None",
+          "summary": "Overdamped Langevin simulator (Euler\u2013Maruyama or stochastic Heun).",
+          "defined_in": "SFI.langevin.overdamped"
+        },
+        {
+          "name": "UnderdampedProcess",
+          "kind": "class",
+          "signature": "(F: Union[SFI.statefunc.basis.Basis, SFI.statefunc.psf.PSF, SFI.statefunc.sf.SF], D: Union[float, jax.jaxlib._jax.Array, SFI.statefunc.basis.Basis, SFI.statefunc.psf.PSF, SFI.statefunc.sf.SF], theta_F: Optional[jax.jaxlib._jax.Array] = None, theta_D: Optional[jax.jaxlib._jax.Array] = None, extras_global: Optional[Dict[str, Any]] = None, extras_local: Optional[Dict[str, Any]] = None, _structural_extras_prepared: bool = False, _prepared_structural: Optional[Dict[str, Any]] = None, _D_needs_v: 'bool' = False, _D_sf: 'Optional[SF]' = None) -> None",
+          "summary": "Underdamped Langevin simulator.",
+          "defined_in": "SFI.langevin.underdamped"
+        },
+        {
+          "name": "WhiteNoise",
+          "kind": "class",
+          "signature": "(sigma: 'float', *, n_fields: 'int' = 1) -> 'None'",
+          "summary": "Spatially uncorrelated Gaussian noise: ``B = sqrt(2\u03c3) I``.",
+          "defined_in": "SFI.langevin.noise"
+        }
+      ]
+    },
+    {
+      "module": "SFI.bases",
+      "doc": "SFI.bases",
+      "symbols": [
+        {
+          "name": "V",
+          "kind": "function",
+          "signature": "(dim: 'int', *, label: 'Optional[str]' = None) -> 'Basis'",
+          "summary": "Identity in v with an explicit feature axis.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "X",
+          "kind": "function",
+          "signature": "(dim: 'int', *, label: 'Optional[str]' = None) -> 'Basis'",
+          "summary": "Identity in x with an explicit feature axis.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "constant_array",
+          "kind": "function",
+          "signature": "(A, *, label: str = 'const', descriptor: str = 'constant-array', as_sf=True)",
+          "summary": "Constant basis/sf with a single feature whose value is a fixed tensor A of shape",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "dataset_indicator",
+          "kind": "function",
+          "signature": "(n_datasets: int, *, dim: int | None = None)",
+          "summary": "Rank-0 Basis of ``n_datasets`` one-hot features ``1{dataset == d}``.",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "extra_scalar",
+          "kind": "function",
+          "signature": "(name: str, *, dim: int | None = None, label: str | None = None)",
+          "summary": "Rank-0, 1-feature Basis whose value is read from ``extras[name]``.",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "field_component",
+          "kind": "function",
+          "signature": "(index: 'int', *, n_fields: 'int', label: 'Optional[str]' = None) -> 'Basis'",
+          "summary": "Extract a single field component from an SPDE state vector.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "frame",
+          "kind": "function",
+          "signature": "(dim: 'int', *, velocity: 'bool' = False, x_labels: 'Optional[Sequence[str]]' = None, v_labels: 'Optional[Sequence[str]]' = None, e_labels: 'Optional[Sequence[str]]' = None) -> 'tuple[Basis, ...]'",
+          "summary": "Default compositional frame: constant ``1`` + coordinate scalars + unit axes.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "identity_matrix_basis",
+          "kind": "function",
+          "signature": "(dim: int, pdepth: int = 0) -> SFI.statefunc.basis.Basis",
+          "summary": "",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "linear_basis",
+          "kind": "function",
+          "signature": "(dim: 'int', *, include_x: 'bool' = True, include_v: 'bool' = False)",
+          "summary": "Degree-1 monomial basis in (x, v).",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "monomials_degree",
+          "kind": "function",
+          "signature": "(degree: int, *, dim: int, include_x: bool = True, include_v: bool = False, rank: str = 'scalar')",
+          "summary": "All monomials of **exact** total degree in x and/or v.",
+          "defined_in": "SFI.bases.monomials"
+        },
+        {
+          "name": "monomials_up_to",
+          "kind": "function",
+          "signature": "(order: int, *, dim: int, include_constant: bool = True, include_x: bool = True, include_v: bool = False, rank: str = 'scalar')",
+          "summary": "Concatenate degree-wise monomial bases for degrees 0..order (ascending).",
+          "defined_in": "SFI.bases.monomials"
+        },
+        {
+          "name": "named_scalar",
+          "kind": "function",
+          "signature": "(name: str, default=None, *, dim: int | None = None, label: str | None = None)",
+          "summary": "Rank-0, 1-feature PSF whose value is a single named scalar parameter.",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "named_scalars",
+          "kind": "function",
+          "signature": "(*args, **kwargs)",
+          "summary": "Unpack named scalar parameters, one PSF per name.",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "ones_basis",
+          "kind": "function",
+          "signature": "(dim: int, pdepth: int = 0) -> SFI.statefunc.basis.Basis",
+          "summary": "",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "per_dataset_scalar",
+          "kind": "function",
+          "signature": "(name: str, n_datasets: int, default=None, *, dim: int | None = None)",
+          "summary": "Rank-0, 1-feature PSF whose value is dataset-specific.",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "symmetric_matrix_basis",
+          "kind": "function",
+          "signature": "(dim: int, pdepth: int = 0) -> SFI.statefunc.basis.Basis",
+          "summary": "Constant symmetric-matrix templates spanning the space of real symmetric",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "time_fourier",
+          "kind": "function",
+          "signature": "(n_modes: int, period: float | None = None, *, dim: int | None = None, label: str | None = None)",
+          "summary": "Rank-0 time-Fourier dictionary read from the reserved ``time`` extra.",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "unit_axes",
+          "kind": "function",
+          "signature": "(dim: 'int', *, labels: 'Optional[Sequence[str]]' = None) -> 'tuple[Basis, ...]'",
+          "summary": "Unpack unit-vector bases (one per spatial axis).",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "unit_vector_basis",
+          "kind": "function",
+          "signature": "(dim: int, axes: Optional[Sequence[int]] = None) -> SFI.statefunc.basis.Basis",
+          "summary": "",
+          "defined_in": "SFI.bases.constants"
+        },
+        {
+          "name": "v_components",
+          "kind": "function",
+          "signature": "(dim: 'int', *, labels: 'Optional[Sequence[str]]' = None) -> 'tuple[Basis, ...]'",
+          "summary": "Unpack scalar v-coordinate bases, one per axis.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "v_coordinate",
+          "kind": "function",
+          "signature": "(index: 'int', *, dim: 'int', label: 'Optional[str]' = None) -> 'Basis'",
+          "summary": "Single v-coordinate as a scalar feature.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "v_coordinates",
+          "kind": "function",
+          "signature": "(indices: 'Sequence[int]', *, dim: 'int', labels: 'Optional[Sequence[str]]' = None) -> 'Basis'",
+          "summary": "Multiple v-coordinates as scalar features.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "x_components",
+          "kind": "function",
+          "signature": "(dim: 'int', *, labels: 'Optional[Sequence[str]]' = None) -> 'tuple[Basis, ...]'",
+          "summary": "Unpack scalar x-coordinate bases, one per axis.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "x_coordinate",
+          "kind": "function",
+          "signature": "(index: 'int', *, dim: 'int', label: 'Optional[str]' = None) -> 'Basis'",
+          "summary": "Single x-coordinate as a scalar feature.",
+          "defined_in": "SFI.bases.linear"
+        },
+        {
+          "name": "x_coordinates",
+          "kind": "function",
+          "signature": "(indices: 'Sequence[int]', *, dim: 'int', labels: 'Optional[Sequence[str]]' = None) -> 'Basis'",
+          "summary": "Multiple x-coordinates as scalar features.",
+          "defined_in": "SFI.bases.linear"
+        }
+      ]
+    },
+    {
+      "module": "SFI.integrate",
+      "doc": "SFI.integrate \u2014 Time-averaging integration engine.",
+      "symbols": [
+        {
+          "name": "ConstOperand",
+          "kind": "class",
+          "signature": "(value: 'jnp.ndarray', alias: 'str' = 'C') -> None",
+          "summary": "Constant array captured by the program (e.g. A_inv).",
+          "defined_in": "SFI.integrate.integrand"
+        },
+        {
+          "name": "ExprOperand",
+          "kind": "class",
+          "signature": "(expr: 'object', x: \"'TimeOp'\", v: \"Optional['TimeOp']\" = None, params_template: 'Optional[Mapping]' = None, alias: 'str' = 'E') -> None",
+          "summary": "Wrap a state expression evaluated at x (and optionally v).",
+          "defined_in": "SFI.integrate.integrand"
+        },
+        {
+          "name": "Integrand",
+          "kind": "class",
+          "signature": "(exprs: 'Sequence[ExprOperand]' = (), times: 'Sequence[TimeOperand]' = (), consts: 'Sequence[ConstOperand]' = (), terms: 'Sequence[Term]' = ())",
+          "summary": "Compose state expressions and time operands via einsum per time slice.",
+          "defined_in": "SFI.integrate.integrand"
+        },
+        {
+          "name": "Term",
+          "kind": "class",
+          "signature": "(eq: 'str', ops: 'Tuple[str, ...]', scale: 'float' = 1.0) -> None",
+          "summary": "One einsum contraction over the named operands.",
+          "defined_in": "SFI.integrate.integrand"
+        },
+        {
+          "name": "TimeOperand",
+          "kind": "class",
+          "signature": "(op: \"'TimeOp'\", alias: 'str' = 'T') -> None",
+          "summary": "Time operand (scalar/vector/tensor) built from streams via a TimeOp.",
+          "defined_in": "SFI.integrate.integrand"
+        },
+        {
+          "name": "add",
+          "kind": "function",
+          "signature": "(ops: 'Iterable[TimeOp]', *, name: 'str | None' = None) -> 'TimeOp'",
+          "summary": "Return a TimeOp that sums the outputs of all *ops* element-wise.",
+          "defined_in": "SFI.integrate.timeops"
+        },
+        {
+          "name": "integrate",
+          "kind": "function",
+          "signature": "(collection, program, *, reduce: 'str' = 'sum', reduce_over_particles: 'bool' = True, weight_by_dt: 'bool' = True, subsampling: 'int' = 1, chunk_target_bytes: 'int' = 536870912, context: 'Optional[str]' = None, batch: 'bool' = True) -> 'jnp.ndarray'",
+          "summary": "Integrate an instantaneous program over time and datasets.",
+          "defined_in": "SFI.integrate.api"
+        },
+        {
+          "name": "make_minibatch_parametric_integrator",
+          "kind": "function",
+          "signature": "(collection, program, *, batch_size: 'int', reduce: 'str' = 'sum', reduce_over_particles: 'bool' = True, weight_by_dt: 'bool' = True, subsampling: 'int' = 1, chunk_target_bytes: 'int' = 536870912, context: 'Optional[str]' = None, bytes_per_sample: 'Optional[int]' = None, batch: 'bool' = True) -> 'Tuple[IntegrationPlan, Callable, Callable]'",
+          "summary": "Build a parametric integrator with both full and mini-batch runners.",
+          "defined_in": "SFI.integrate.api"
+        },
+        {
+          "name": "make_parametric_integrator",
+          "kind": "function",
+          "signature": "(collection, program, *, reduce: 'str' = 'sum', reduce_over_particles: 'bool' = True, weight_by_dt: 'bool' = True, subsampling: 'int' = 1, chunk_target_bytes: 'int' = 536870912, context: 'Optional[str]' = None, bytes_per_sample: 'Optional[int]' = None, batch: 'bool' = True) -> 'Tuple[IntegrationPlan, Callable[[Any], jnp.ndarray]]'",
+          "summary": "Build a reusable, jittable integrator for a parametric Integrand.",
+          "defined_in": "SFI.integrate.api"
+        },
+        {
+          "name": "scale",
+          "kind": "function",
+          "signature": "(op: 'TimeOp', alpha: 'float | int', *, name: 'str | None' = None) -> 'TimeOp'",
+          "summary": "Return a TimeOp that multiplies *op* by scalar *alpha*.",
+          "defined_in": "SFI.integrate.timeops"
+        },
+        {
+          "name": "stream",
+          "kind": "function",
+          "signature": "(key: 'str', *, name: 'str | None' = None) -> 'TimeOp'",
+          "summary": "Return a TimeOp that passes stream *key* through unchanged.",
+          "defined_in": "SFI.integrate.timeops"
+        },
+        {
+          "name": "timeop",
+          "kind": "function",
+          "signature": "(fn: 'Callable[..., jnp.ndarray] | None' = None, *, name: 'str | None' = None, batch_safe: 'bool' = False, requires: 'Optional[FrozenSet[str]]' = None)",
+          "summary": "Decorator: convert a function into a TimeOp.",
+          "defined_in": "SFI.integrate.timeops"
+        },
+        {
+          "name": "velocity",
+          "kind": "function",
+          "signature": "(dx_key: 'str', dt_key: 'str', *, name: 'str | None' = None) -> 'TimeOp'",
+          "summary": "Return a TimeOp that computes dx/dt, broadcasting dt over arbitrary leading dims.",
+          "defined_in": "SFI.integrate.timeops"
+        }
+      ]
+    },
+    {
+      "module": "SFI.diagnostics",
+      "doc": "SFI diagnostics \u2014 residual-consistency checks for inference results.",
+      "symbols": [
+        {
+          "name": "DiagnosticsReport",
+          "kind": "class",
+          "signature": "(residuals: 'dict' = <factory>, meta: 'dict' = <factory>) -> None",
+          "summary": "Container for residual-consistency test results.",
+          "defined_in": "SFI.diagnostics.report"
+        },
+        {
+          "name": "DynamicsOrderReport",
+          "kind": "class",
+          "signature": "(verdict: 'str', fit: 'dict' = <factory>, scaling: 'dict' = <factory>, scan: 'dict' = <factory>, cross_check: 'Optional[dict]' = None, meta: 'dict' = <factory>) -> None",
+          "summary": "Result of :func:`classify_dynamics`.",
+          "defined_in": "SFI.diagnostics.dynamics_order"
+        },
+        {
+          "name": "assess",
+          "kind": "function",
+          "signature": "(inferer, *, level: 'str' = 'standard', n_lags: 'Optional[int]' = None, data=None) -> 'DiagnosticsReport'",
+          "summary": "Run residual-consistency checks on a fitted inference object.",
+          "defined_in": "SFI.diagnostics.assess"
+        },
+        {
+          "name": "classify_dynamics",
+          "kind": "function",
+          "signature": "(data, *, strides=None, cross_check: 'bool' = True) -> 'DynamicsOrderReport'",
+          "summary": "Classify trajectory data as overdamped, underdamped, or inconclusive.",
+          "defined_in": "SFI.diagnostics.dynamics_order"
+        },
+        {
+          "name": "parametric_four_point_diagnostic",
+          "kind": "function",
+          "signature": "(data, drift_fn, dt, n_substeps=4)",
+          "summary": "Four-point diagnostic: test that Cov[r_i, r_{i+2}] = 0.",
+          "defined_in": "SFI.diagnostics.residual_tests"
+        },
+        {
+          "name": "plot_dynamics_order",
+          "kind": "function",
+          "signature": "(report, *, axes=None)",
+          "summary": "Visualise an OD-vs-UD classification (:func:`classify_dynamics`).",
+          "defined_in": "SFI.diagnostics.plotting"
+        },
+        {
+          "name": "plot_qq",
+          "kind": "function",
+          "signature": "(report_or_inferer, *, ax=None, level: 'str' = 'standard')",
+          "summary": "Normal Q--Q plot of pooled whitened residuals.",
+          "defined_in": "SFI.diagnostics.plotting"
+        },
+        {
+          "name": "plot_residual_acf",
+          "kind": "function",
+          "signature": "(report_or_inferer, *, ax=None, level: 'str' = 'standard')",
+          "summary": "Autocorrelation of the residuals (and of $z^2$).",
+          "defined_in": "SFI.diagnostics.plotting"
+        },
+        {
+          "name": "plot_residual_histogram",
+          "kind": "function",
+          "signature": "(report_or_inferer, *, ax=None, bins: 'int' = 60, level: 'str' = 'standard')",
+          "summary": "Histogram of pooled residuals overlaid with N(0,1) density.",
+          "defined_in": "SFI.diagnostics.plotting"
+        },
+        {
+          "name": "plot_summary",
+          "kind": "function",
+          "signature": "(report_or_inferer, *, level: 'str' = 'standard', figsize=(13.0, 4.0))",
+          "summary": "1\u00d73 summary figure: Q--Q plot, residual histogram, and ACF.",
+          "defined_in": "SFI.diagnostics.plotting"
+        }
+      ]
+    },
+    {
+      "module": "SFI.utils",
+      "doc": "SFI.utils \u2014 Mathematical, formatting, and plotting utilities.",
+      "symbols": [
+        {
+          "name": "as_default_float",
+          "kind": "function",
+          "signature": "(x)",
+          "summary": "Return ``x`` cast to the JAX default float dtype.",
+          "defined_in": "SFI.utils.maths"
+        },
+        {
+          "name": "default_float_dtype",
+          "kind": "function",
+          "signature": "()",
+          "summary": "Return JAX's currently-active default float dtype.",
+          "defined_in": "SFI.utils.maths"
+        },
+        {
+          "name": "fd_velocity",
+          "kind": "function",
+          "signature": "(x, dt, *, scheme: str = 'central')",
+          "summary": "Finite-difference velocity along the leading (time) axis.",
+          "defined_in": "SFI.utils.maths"
+        },
+        {
+          "name": "model_summary",
+          "kind": "function",
+          "signature": "(labels: 'Sequence[str]', coefficients: 'np.ndarray', *, stderr: 'Optional[np.ndarray]' = None, support: 'Optional[np.ndarray]' = None, coeffs_true: 'Optional[np.ndarray]' = None, support_true: 'Optional[np.ndarray]' = None, title: 'str' = 'Coefficient Table', max_rows: 'int' = 60, significance_thresholds: 'tuple' = (2.0, 10.0, 100.0), auto_labels: 'bool' = False) -> 'str'",
+          "summary": "Build a human-readable coefficient table with SNR and significance.",
+          "defined_in": "SFI.utils.formatting"
+        },
+        {
+          "name": "print_model_comparison",
+          "kind": "function",
+          "signature": "(inferences, labels, *, extra_cols=None, metrics=None, title: 'str' = 'Model Comparison') -> 'str'",
+          "summary": "Build a multi-model comparison table from several inference objects.",
+          "defined_in": "SFI.utils.formatting"
+        },
+        {
+          "name": "solve_or_pinv",
+          "kind": "function",
+          "signature": "(A: jax.jaxlib._jax.Array, b: jax.jaxlib._jax.Array, tol: float = 1e-15) -> jax.jaxlib._jax.Array",
+          "summary": "Solve A \u22c5 x = b for x, with a fallback to the Moore\u2013Penrose pseudo-inverse",
+          "defined_in": "SFI.utils.maths"
+        },
+        {
+          "name": "sqrtm_psd",
+          "kind": "callable",
+          "signature": "(A: jax.jaxlib._jax.Array, eps: float = 0.0) -> jax.jaxlib._jax.Array",
+          "summary": "Symmetric PSD matrix square root, applied to the last two (matrix) axes.",
+          "defined_in": "SFI.utils.maths"
+        },
+        {
+          "name": "stable_pinv",
+          "kind": "function",
+          "signature": "(G)",
+          "summary": "Numerically-stable pseudo-inverse of a Gram matrix.",
+          "defined_in": "SFI.utils.maths"
+        }
+      ]
+    }
+  ]
+}
