@@ -1,0 +1,21 @@
+# Pre-commit hooks for SFI.
+#
+# Setup:
+#     pip install pre-commit
+#     pre-commit install
+#
+# Hooks:
+#   - gen-api-map: regenerate _project_index/api_map.{json,md} whenever
+#     the public API surface (SFI/**/*.py) changes, so agent docs stay
+#     in sync with AGENTS.md §4.
+
+repos:
+  - repo: local
+    hooks:
+      - id: gen-api-map
+        name: Regenerate _project_index/api_map.{json,md}
+        entry: python scripts/gen_api_map.py
+        language: system
+        pass_filenames: false
+        files: ^SFI/.*\.py$
+        stages: [pre-commit]

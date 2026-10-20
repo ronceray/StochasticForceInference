@@ -1,0 +1,35 @@
+name: Agent docs freshness
+
+on:
+  pull_request:
+    paths:
+      - "SFI/**/*.py"
+      - "_project_index/**"
+      - "AGENTS.md"
+      - "scripts/gen_api_map.py"
+      - ".github/workflows/agent_docs.yml"
+  push:
+    branches: [main]
+    paths:
+      - "SFI/**/*.py"
+      - "_project_index/**"
+
+jobs:
+  check-api-map:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install SFI (runtime deps only)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Check API map is up to date
+        run: python scripts/gen_api_map.py --check

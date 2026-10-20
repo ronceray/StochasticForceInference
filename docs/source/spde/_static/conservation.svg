@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 250" width="440" height="250">
+  <style>
+    .title { font-family: 'Source Sans Pro', sans-serif; font-size: 14px; font-weight: 600; fill: #333; text-anchor: middle; }
+    .cell-pos { fill: #E53935; fill-opacity: 0.55; }
+    .cell-neg { fill: #1E88E5; fill-opacity: 0.55; }
+    .cell-zero { fill: #eee; fill-opacity: 0.35; }
+    .cell-border { stroke: #888; stroke-width: 0.8; fill: none; }
+    .val { font-family: 'Source Code Pro', monospace; font-size: 11px; fill: #222; text-anchor: middle; dominant-baseline: central; }
+    .annotation { font-family: 'Source Sans Pro', sans-serif; font-size: 11px; fill: #555; text-anchor: middle; }
+    .sum-label { font-family: 'Source Sans Pro', sans-serif; font-size: 13px; font-weight: 600; fill: #2E7D32; text-anchor: middle; }
+    .arrow { stroke: #666; stroke-width: 1.2; fill: none; }
+    .arrow-head { fill: #666; }
+    .wrap { stroke: #E65100; stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .title { fill: #eee; }
+      .cell-pos { fill: #EF5350; fill-opacity: 0.5; }
+      .cell-neg { fill: #42A5F5; fill-opacity: 0.5; }
+      .cell-zero { fill: #333; fill-opacity: 0.3; }
+      .cell-border { stroke: #666; }
+      .val { fill: #eee; }
+      .annotation { fill: #aaa; }
+      .sum-label { fill: #66BB6A; }
+      .arrow { stroke: #999; }
+      .arrow-head { fill: #999; }
+      .wrap { stroke: #FF8A65; }
+    }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" class="arrow-head"/>
+    </marker>
+  </defs>
+  <text x="220" y="18" class="title">Conservation: Σᵢ [∇²g(φ)]ᵢ = 0 on PBC</text>
+
+  <!-- Left panel: g(φ) on 4×4 PBC grid -->
+  <text x="110" y="40" class="annotation">g(φ)</text>
+  <g transform="translate(30, 48)">
+    <!-- Row 0: 3, -1, 2, -4 -->
+    <rect x="0"   y="0" width="40" height="40" class="cell-pos"/><rect x="0"   y="0" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="20" class="val">+3</text>
+    <rect x="40"  y="0" width="40" height="40" class="cell-neg"/><rect x="40"  y="0" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="20" class="val">−1</text>
+    <rect x="80"  y="0" width="40" height="40" class="cell-pos"/><rect x="80"  y="0" width="40" height="40" class="cell-border"/>
+    <text x="100" y="20" class="val">+2</text>
+    <rect x="120" y="0" width="40" height="40" class="cell-neg"/><rect x="120" y="0" width="40" height="40" class="cell-border"/>
+    <text x="140" y="20" class="val">−4</text>
+    <!-- Row 1: -2, 5, 0, -3 -->
+    <rect x="0"   y="40" width="40" height="40" class="cell-neg"/><rect x="0"   y="40" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="60" class="val">−2</text>
+    <rect x="40"  y="40" width="40" height="40" class="cell-pos"/><rect x="40"  y="40" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="60" class="val">+5</text>
+    <rect x="80"  y="40" width="40" height="40" class="cell-zero"/><rect x="80"  y="40" width="40" height="40" class="cell-border"/>
+    <text x="100" y="60" class="val">0</text>
+    <rect x="120" y="40" width="40" height="40" class="cell-neg"/><rect x="120" y="40" width="40" height="40" class="cell-border"/>
+    <text x="140" y="60" class="val">−3</text>
+    <!-- Row 2: 1, -2, 4, -3 -->
+    <rect x="0"   y="80" width="40" height="40" class="cell-pos"/><rect x="0"   y="80" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="100" class="val">+1</text>
+    <rect x="40"  y="80" width="40" height="40" class="cell-neg"/><rect x="40"  y="80" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="100" class="val">−2</text>
+    <rect x="80"  y="80" width="40" height="40" class="cell-pos"/><rect x="80"  y="80" width="40" height="40" class="cell-border"/>
+    <text x="100" y="100" class="val">+4</text>
+    <rect x="120" y="80" width="40" height="40" class="cell-neg"/><rect x="120" y="80" width="40" height="40" class="cell-border"/>
+    <text x="140" y="100" class="val">−3</text>
+    <!-- Row 3: -1, 2, -1, 0 -->
+    <rect x="0"   y="120" width="40" height="40" class="cell-neg"/><rect x="0"   y="120" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="140" class="val">−1</text>
+    <rect x="40"  y="120" width="40" height="40" class="cell-pos"/><rect x="40"  y="120" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="140" class="val">+2</text>
+    <rect x="80"  y="120" width="40" height="40" class="cell-neg"/><rect x="80"  y="120" width="40" height="40" class="cell-border"/>
+    <text x="100" y="140" class="val">−1</text>
+    <rect x="120" y="120" width="40" height="40" class="cell-zero"/><rect x="120" y="120" width="40" height="40" class="cell-border"/>
+    <text x="140" y="140" class="val">0</text>
+    <!-- PBC wrap curves -->
+    <path d="M -5,20 C -15,20 -15,140 -5,140" class="wrap"/>
+    <path d="M 165,20 C 175,20 175,140 165,140" class="wrap"/>
+    <path d="M 20,-5 C 20,-15 140,-15 140,-5" class="wrap"/>
+    <path d="M 20,165 C 20,175 140,175 140,165" class="wrap"/>
+  </g>
+
+  <!-- Arrow -->
+  <line x1="205" y1="130" x2="240" y2="130" class="arrow" marker-end="url(#arr)"/>
+  <text x="222" y="123" class="annotation">∇²</text>
+
+  <!-- Right panel: ∇²g(φ) — computed values -->
+  <!-- lap = [[-20,16,-14,18],  [14,-25,8,3],  [-12,20,-22,14],  [10,-13,12,-9]] -->
+  <text x="340" y="40" class="annotation">∇²g(φ)</text>
+  <g transform="translate(260, 48)">
+    <!-- Row 0: -20, 16, -14, 18 -->
+    <rect x="0"   y="0" width="40" height="40" class="cell-neg"/><rect x="0"   y="0" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="20" class="val">−20</text>
+    <rect x="40"  y="0" width="40" height="40" class="cell-pos"/><rect x="40"  y="0" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="20" class="val">+16</text>
+    <rect x="80"  y="0" width="40" height="40" class="cell-neg"/><rect x="80"  y="0" width="40" height="40" class="cell-border"/>
+    <text x="100" y="20" class="val">−14</text>
+    <rect x="120" y="0" width="40" height="40" class="cell-pos"/><rect x="120" y="0" width="40" height="40" class="cell-border"/>
+    <text x="140" y="20" class="val">+18</text>
+    <!-- Row 1: 14, -25, 8, 3 -->
+    <rect x="0"   y="40" width="40" height="40" class="cell-pos"/><rect x="0"   y="40" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="60" class="val">+14</text>
+    <rect x="40"  y="40" width="40" height="40" class="cell-neg"/><rect x="40"  y="40" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="60" class="val">−25</text>
+    <rect x="80"  y="40" width="40" height="40" class="cell-pos"/><rect x="80"  y="40" width="40" height="40" class="cell-border"/>
+    <text x="100" y="60" class="val">+8</text>
+    <rect x="120" y="40" width="40" height="40" class="cell-pos"/><rect x="120" y="40" width="40" height="40" class="cell-border"/>
+    <text x="140" y="60" class="val">+3</text>
+    <!-- Row 2: -12, 20, -22, 14 -->
+    <rect x="0"   y="80" width="40" height="40" class="cell-neg"/><rect x="0"   y="80" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="100" class="val">−12</text>
+    <rect x="40"  y="80" width="40" height="40" class="cell-pos"/><rect x="40"  y="80" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="100" class="val">+20</text>
+    <rect x="80"  y="80" width="40" height="40" class="cell-neg"/><rect x="80"  y="80" width="40" height="40" class="cell-border"/>
+    <text x="100" y="100" class="val">−22</text>
+    <rect x="120" y="80" width="40" height="40" class="cell-pos"/><rect x="120" y="80" width="40" height="40" class="cell-border"/>
+    <text x="140" y="100" class="val">+14</text>
+    <!-- Row 3: 10, -13, 12, -9 -->
+    <rect x="0"   y="120" width="40" height="40" class="cell-pos"/><rect x="0"   y="120" width="40" height="40" class="cell-border"/>
+    <text x="20"  y="140" class="val">+10</text>
+    <rect x="40"  y="120" width="40" height="40" class="cell-neg"/><rect x="40"  y="120" width="40" height="40" class="cell-border"/>
+    <text x="60"  y="140" class="val">−13</text>
+    <rect x="80"  y="120" width="40" height="40" class="cell-pos"/><rect x="80"  y="120" width="40" height="40" class="cell-border"/>
+    <text x="100" y="140" class="val">+12</text>
+    <rect x="120" y="120" width="40" height="40" class="cell-neg"/><rect x="120" y="120" width="40" height="40" class="cell-border"/>
+    <text x="140" y="140" class="val">−9</text>
+  </g>
+
+  <!-- Sum annotation -->
+  <text x="340" y="218" class="sum-label">Σᵢ = 0  ✓</text>
+  <text x="340" y="237" class="annotation">exact for any g(φ) on PBC</text>
+</svg>
