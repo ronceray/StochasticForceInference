@@ -1,0 +1,53 @@
+# SFI gallery — matplotlib style
+# Usage: plt.style.use("<repo>/examples/sfi_gallery.mplstyle")
+#
+# Design: transparent backgrounds with light-grey text, optimised for the
+# Furo dark theme (#131416 content bg) while remaining legible in light
+# mode via a CSS dark-card wrapper.
+
+# ---- figure ----
+figure.figsize     : 7.5, 4.5
+figure.dpi         : 150
+figure.constrained_layout.use : True
+figure.facecolor   : none
+figure.edgecolor   : none
+savefig.dpi        : 150
+savefig.facecolor  : none
+savefig.transparent : True
+
+# ---- fonts & text ----
+font.size          : 10
+text.color         : D0D0D0
+axes.titlesize     : 12
+axes.labelsize     : 10
+axes.labelcolor    : D0D0D0
+xtick.labelsize    : 8
+ytick.labelsize    : 8
+xtick.color        : B0B0B0
+ytick.color        : B0B0B0
+legend.fontsize    : 9
+
+# ---- axes ----
+axes.grid          : False
+axes.facecolor     : none
+axes.edgecolor     : 808080
+axes.spines.top    : False
+axes.spines.right  : False
+axes.prop_cycle    : cycler('color', ['3B9EFF', 'FFC20A', 'FF7A1A', '5D3A9B', '40B0A6', 'FF2D6F', '1A85FF', 'D35FB7'])
+
+# ---- legend ----
+legend.frameon     : False
+legend.loc         : best
+legend.labelcolor  : D0D0D0
+
+# ---- lines ----
+lines.linewidth    : 1.5
+lines.markersize   : 4
+
+# ---- animation ----
+animation.html     : html5
+animation.writer   : ffmpeg
+animation.codec    : h264
+
+# ---- scatter ----
+scatter.marker     : .
