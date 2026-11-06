@@ -1,82 +1,29 @@
-# StochasticForceInference	
+# This branch is retired
 
----
-This is the legacy version accompanying the 2020 PRX paper, only left for archival purpose. A much improved version is available at https://github.com/ronceray/StochasticForceInference. 
----
+`master` held the original SFI scripts (`StochasticForceInference.py`,
+2019–2025), which accompanied the 2020 PRX paper. SFI 2, a rewrite with a
+new API, lives on [`main`](https://github.com/ronceray/StochasticForceInference/tree/main):
 
-StochasticForceInference is a package aimed at reconstructing
-spatially variable force, diffusion and current fields and computing
-entropy production in Brownian processes. It implements the method
-presented in SFI_TheoryManual.pdf. Reference:
+```bash
+pip install StochasticForceInference      # then: import SFI
+```
 
-**Learning Force Fields from Stochastic Trajectories**, Anna Frishman and Pierre Ronceray, 
-Phys. Rev. X 10, 021009, 2020.
+Documentation: https://stochasticforceinference.readthedocs.io
 
-Package author: Pierre Ronceray. Contact: pierre.ronceray@univ-amu.fr. Web page: www.pierre-ronceray.net.
+## Old calls in SFI 2
 
------------------------------------------------------------------------
+| Original scripts | SFI 2 |
+| --- | --- |
+| `StochasticTrajectoryData(X, t)` | `TrajectoryCollection.from_arrays(X=X, t=t)` |
+| `StochasticForceInference(data)` | `OverdampedLangevinInference(coll)` |
+| `UnderdampedLangevinInference(data)` (separate repository) | `SFI.UnderdampedLangevinInference(coll)` |
+| `S.compute_drift(basis={"type": "polynomial", "order": n})` | `inf.infer_force_linear(monomials_up_to(order=n, dim=d, rank="vector"))` |
+| `S.compute_diffusion(method=..., basis=...)` | `inf.infer_diffusion_linear(basis)` |
+| `S.compute_drift_error()` | `inf.compute_force_error()` |
+| `S.compute_entropy()` | `inf.compute_entropy_production()` |
+| `print_report`, `compare_to_exact`, `simulate_bootstrapped_trajectory` | same names, new signatures |
 
-This is a force and diffusion inference package for  **overdamped** systems. For underdamped/inertial systems, check **StochasticInertialForceInference**: https://github.com/ronceray/StochasticInertialForceInference
-
------------------------------------------------------------------------
-
-Developed in Python 3.6. Dependencies:
-
-- NumPy, SciPy
-
-- Optional: Matplotlib (2D plotting, recommended); Mayavi2 (3D
-  plotting)
-
------------------------------------------------------------------------
-
-##Contents:
-
-**StochasticForceInference.py**: a front-end includer of all classes
-   useful to the user.
-
-**SFI_data.py**: contains a data wrapper class, StochasticTrajectoryData,
-   which formats trajectories for force and diffusion inference. Also
-   contains a number of plotting routines (of the trajectory, vector
-   fields, tensor fields...). See this file for the different ways to
-   initialize it using data.
-
-**SFI_inference.py**: implements the core force, velocity and diffusion
-   inference class, StochasticForceInference, that reconstructs the
-   these fields, computes error on this reconstruction, and computes
-   entropy production.  Takes as input a StochasticTrajectoryData
-   instance, and inference parameters.
-
-**SFI_langevin.py**: contains the class OverdampedLangevinProcess, which
-   implements a simple Ito integration of Brownian dynamics, useful
-   for testing the method with known models. It takes as input a force
-   field and a diffusion tensor field. Also used by
-   StochasticForceInference to bootstrap new trajectories with the
-   inferred force field.
-
-**SFI_projectors.py**: implements an internal class, TrajectoryProjectors,
-   used by DiffusionInference and StochasticForceInference. Given a
-   set of fitting functions, it orthonormalizes it as a premise to the
-   inference.
-
-**SFI_bases.py**: provides an internal dictionary of (more or less)
-   standard fitting bases, such as polynomials. This dictionary is
-   called by DiffusionInference and StochasticForceInference at
-   initialization, unless a custom base is provided by the user.
-
-**SFI_plotting_toolkit.py**: a few plotting functions for the convenience
-   of the author.
-
-**SFI_demo_Lorenz.py**: a fully commented example of force and diffusion
-   inference on the example of a simple 3D process. Start here!
-   
-**SFI_demo_particles.py**: a more advanced example: active Brownian
-   particles. Shows how to extract the pair interaction force.	       
-   
------------------------------------------------------------------------
-
-
-Enjoy, and please send feedback at pierre.ronceray@univ-amu.fr!
-
-       	   	       				     PR
-						
------------------------------------------------------------------------
+The theory manual, `SFI_TheoryManual.pdf`, stays on this branch. The original
+scripts are preserved at the tag
+[`legacy-scripts`](https://github.com/ronceray/StochasticForceInference/tree/legacy-scripts)
+and in this branch's history.
